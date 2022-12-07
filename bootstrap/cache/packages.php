@@ -85,4 +85,15 @@
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
+  'vinkla/hashids' => 
+  array (
+    'aliases' => 
+    array (
+      'Hashids' => 'Vinkla\\Hashids\\Facades\\Hashids',
+    ),
+    'providers' => 
+    array (
+      0 => 'Vinkla\\Hashids\\HashidsServiceProvider',
+    ),
+  ),
 );

@@ -56,10 +56,9 @@ class Helper {
         return $type_id ? $type[$type_id].$reason:$type;
     }
 
-    public static function AppealRequestDate(String $date)
+    public static function Date(String $date)
     {
-        $timestemp = strtotime($date);
-        return date('d/m/Y',$timestemp);
+        return date('d/m/Y',$date);
     }
 
     public static function Attachment(Object $attachment)
