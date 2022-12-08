@@ -3,87 +3,92 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class MenusTableSeeder extends Seeder
 {
-    private $menuId = null;
-    private $dropdownId = array();
-    private $dropdown = false;
-    private $sequence = 1;
-    private $joinData = array();
-    private $translationData = array();
+    private $menuId             = null;
+    private $dropdownId         = array();
+    private $dropdown           = false;
+    private $sequence           = 1;
+    private $joinData           = array();
+    private $translationData    = array();
     private $defaultTranslation = 'en';
-    private $adminRole = null;
-    private $userRole = null;
+    private $adminRole          = null;
+    private $userRole           = null;
 
-    public function join($roles, $menusId){
+    public function join($roles, $menusId)
+    {
         $roles = explode(',', $roles);
-        foreach($roles as $role){
+        foreach ($roles as $role) {
             array_push($this->joinData, array('role_name' => $role, 'menus_id' => $menusId));
         }
     }
 
     /*
-        Function assigns menu elements to roles
-        Must by use on end of this seeder
-    */
-    public function joinAllByTransaction(){
+    Function assigns menu elements to roles
+    Must by use on end of this seeder
+     */
+    public function joinAllByTransaction()
+    {
         DB::beginTransaction();
-        foreach($this->joinData as $data){
+        foreach ($this->joinData as $data) {
             DB::table('menu_role')->insert([
                 'role_name' => $data['role_name'],
+                'menus_id'  => $data['menus_id'],
+            ]);
+        }
+        DB::commit();
+    }
+
+    public function addTranslation($lang, $name, $menuId)
+    {
+        array_push($this->translationData, array(
+            'name'     => $name,
+            'lang'     => $lang,
+            'menus_id' => $menuId,
+        ));
+    }
+
+    /*
+    Function insert All translations
+    Must by use on end of this seeder
+     */
+    public function insertAllTranslations()
+    {
+        DB::beginTransaction();
+        foreach ($this->translationData as $data) {
+            DB::table('menus_lang')->insert([
+                'name'     => $data['name'],
+                'lang'     => $data['lang'],
                 'menus_id' => $data['menus_id'],
             ]);
         }
         DB::commit();
     }
 
-    public function addTranslation($lang, $name, $menuId){
-        array_push($this->translationData, array(
-            'name' => $name,
-            'lang' => $lang,
-            'menus_id' => $menuId
-        ));
-    }
-
-    /*
-        Function insert All translations
-        Must by use on end of this seeder
-    */
-    public function insertAllTranslations(){
-        DB::beginTransaction();
-        foreach($this->translationData as $data){
-            DB::table('menus_lang')->insert([
-                'name' => $data['name'],
-                'lang' => $data['lang'],
-                'menus_id' => $data['menus_id']
-            ]);
-        }
-        DB::commit();
-    }
-
-    public function insertLink($roles, $name, $href, $icon = null){
-        if($this->dropdown === false){
+    public function insertLink($roles, $name, $href, $icon = null)
+    {
+        if ($this->dropdown === false) {
             DB::table('menus')->insert([
-                'slug' => 'link',
+                'slug'     => 'link',
                 //'name' => $name,
-                'icon' => $icon,
-                'href' => $href,
-                'menu_id' => $this->menuId,
-                'sequence' => $this->sequence
+                'icon'     => $icon,
+                'href'     => $href,
+                'menu_id'  => $this->menuId,
+                'sequence' => $this->sequence,
             ]);
-        }else{
+        } else {
             DB::table('menus')->insert([
-                'slug' => 'link',
+                'slug'      => 'link',
                 //'name' => $name,
-                'icon' => $icon,
-                'href' => $href,
-                'menu_id' => $this->menuId,
+                'icon'      => $icon,
+                'href'      => $href,
+                'menu_id'   => $this->menuId,
                 'parent_id' => $this->dropdownId[count($this->dropdownId) - 1],
-                'sequence' => $this->sequence
+                'sequence'  => $this->sequence,
             ]);
         }
         $this->sequence++;
@@ -91,26 +96,26 @@ class MenusTableSeeder extends Seeder
         $this->join($roles, $lastId);
         $this->addTranslation($this->defaultTranslation, $name, $lastId);
         $permission = Permission::where('name', '=', $name)->get();
-        if(empty($permission)){
+        if (empty($permission)) {
             $permission = Permission::create(['name' => 'visit ' . $name]);
         }
         $roles = explode(',', $roles);
-        if(in_array('user', $roles)){
+        if (in_array('user', $roles)) {
             $this->userRole->givePermissionTo($permission);
         }
-        if(in_array('admin', $roles)){
+        if (in_array('admin', $roles)) {
             $this->adminRole->givePermissionTo($permission);
         }
         return $lastId;
-        return $lastId;
     }
 
-    public function insertTitle($roles, $name){
+    public function insertTitle($roles, $name)
+    {
         DB::table('menus')->insert([
-            'slug' => 'title',
+            'slug'     => 'title',
             //'name' => $name,
-            'menu_id' => $this->menuId,
-            'sequence' => $this->sequence
+            'menu_id'  => $this->menuId,
+            'sequence' => $this->sequence,
         ]);
         $this->sequence++;
         $lastId = DB::getPdo()->lastInsertId();
@@ -119,19 +124,20 @@ class MenusTableSeeder extends Seeder
         return $lastId;
     }
 
-    public function beginDropdown($roles, $name, $icon = ''){
-        if(count($this->dropdownId)){
+    public function beginDropdown($roles, $name, $icon = '')
+    {
+        if (count($this->dropdownId)) {
             $parentId = $this->dropdownId[count($this->dropdownId) - 1];
-        }else{
+        } else {
             $parentId = null;
         }
         DB::table('menus')->insert([
-            'slug' => 'dropdown',
+            'slug'      => 'dropdown',
             //'name' => $name,
-            'icon' => $icon,
-            'menu_id' => $this->menuId,
-            'sequence' => $this->sequence,
-            'parent_id' => $parentId
+            'icon'      => $icon,
+            'menu_id'   => $this->menuId,
+            'sequence'  => $this->sequence,
+            'parent_id' => $parentId,
         ]);
         $lastId = DB::getPdo()->lastInsertId();
         array_push($this->dropdownId, $lastId);
@@ -142,9 +148,10 @@ class MenusTableSeeder extends Seeder
         return $lastId;
     }
 
-    public function endDropdown(){
+    public function endDropdown()
+    {
         $this->dropdown = false;
-        array_pop( $this->dropdownId );
+        array_pop($this->dropdownId);
     }
 
     /**
@@ -155,23 +162,23 @@ class MenusTableSeeder extends Seeder
     public function run()
     {
         /* Get roles */
-        $this->adminRole = Role::where('name' , '=' , 'admin' )->first();
-        $this->userRole = Role::where('name', '=', 'user' )->first();
+        $this->adminRole = Role::where('name', '=', 'admin')->first();
+        $this->userRole  = Role::where('name', '=', 'user')->first();
         /* Create Sidebar menu */
         DB::table('menulist')->insert([
-            'name' => 'sidebar menu'
+            'name' => 'sidebar menu',
         ]);
-        $this->menuId = DB::getPdo()->lastInsertId();  //set menuId
+        $this->menuId = DB::getPdo()->lastInsertId(); //set menuId
         /* Create Translation languages */
         DB::table('menu_lang_lists')->insert([
-            'name' => 'English',
+            'name'       => 'English',
             'short_name' => 'en',
-            'is_default' => true
+            'is_default' => true,
         ]);
         DB::table('menu_lang_lists')->insert([
-            'name' => 'Thai',
-            'short_name' => 'th'
-        ]); 
+            'name'       => 'Thai',
+            'short_name' => 'th',
+        ]);
         /* sidebar menu */
         $id = $this->insertLink('guest,user,admin', 'Dashboard', '/', 'cil-speedometer');
         $this->addTranslation('th', 'Dashboard', $id);
@@ -235,7 +242,7 @@ class MenusTableSeeder extends Seeder
         // $id = $this->insertLink('user,admin', 'Charts', '/charts', 'cil-chart-pie');
         // $this->addTranslation('th', 'Wykresy', $id);
         // $id = $this->beginDropdown('user,admin', 'Editors', 'cil-code');
-        // $this->addTranslation('th', 'Edytor', $id);  
+        // $this->addTranslation('th', 'Edytor', $id);
         //     $id = $this->insertLink('user,admin', 'Code Editor',           '/editors/code-editor');
         //     $this->addTranslation('th', 'Edytor kodu', $id);
         //     $id = $this->insertLink('user,admin', 'Markdown',              '/editors/markdown-editor');
@@ -249,8 +256,8 @@ class MenusTableSeeder extends Seeder
         //     $this->addTranslation('th', 'Podstawowe formularze', $id);
         //     $id = $this->insertLink('user,admin', 'Advanced',              '/forms/advanced-forms');
         //     $this->addTranslation('th', 'Zaawansowane formularze', $id);
-        //     $id = $this->insertLink('user,admin', 'Validation',      '/forms/validation');  
-        //     $this->addTranslation('th', 'Walidacja', $id);      
+        //     $id = $this->insertLink('user,admin', 'Validation',      '/forms/validation');
+        //     $this->addTranslation('th', 'Walidacja', $id);
         // $this->endDropdown();
         // $id = $this->insertLink('user,admin', 'Google Maps', '/google-maps', 'cil-map');
         // $this->addTranslation('th', 'Mapy Google', $id);
@@ -330,26 +337,26 @@ class MenusTableSeeder extends Seeder
 
         /* Create top menu */
         DB::table('menulist')->insert([
-            'name' => 'top menu'
+            'name' => 'top menu',
         ]);
-        $this->menuId = DB::getPdo()->lastInsertId();  //set menuId
-        $id = $this->beginDropdown('admin', 'Admin Settings');
+        $this->menuId = DB::getPdo()->lastInsertId(); //set menuId
+        $id           = $this->beginDropdown('admin', 'Admin Settings');
         $this->addTranslation('th', 'ตั้งค่าระบบ', $id);
 
-        $id = $this->insertLink('admin', 'Edit menu',               route("admin.menu.index", [], false));
+        $id = $this->insertLink('admin', 'Edit menu', route("admin.menu.index", [], false));
         $this->addTranslation('th', 'แก้ไขเมนู', $id);
-        $id = $this->insertLink('admin', 'Edit menu elements',      route("admin.menu.menu.index", [], false));
+        $id = $this->insertLink('admin', 'Edit menu elements', route("admin.menu.menu.index", [], false));
         $this->addTranslation('th', 'Edytuj elementy menu', $id);
-        $id = $this->insertLink('admin', 'Manage Languages',        route("admin.languages.index", [], false));
+        $id = $this->insertLink('admin', 'Manage Languages', route("admin.languages.index", [], false));
         $this->addTranslation('th', 'จัดการภาษา', $id);
-        $id = $this->insertLink('admin', 'Edit roles',              route("admin.roles.index", [], false));
+        $id = $this->insertLink('admin', 'Edit roles', route("admin.roles.index", [], false));
         $this->addTranslation('th', 'จัดการ Role', $id);
-        $id = $this->insertLink('admin', 'Edit Users',              route("admin.users.index", [], false));
+        $id = $this->insertLink('admin', 'Edit Users', route("admin.users.index", [], false));
         $this->addTranslation('th', 'จัดการผู้ใช้งาน', $id);
 
         $this->endDropdown();
 
-        $this->joinAllByTransaction();   ///   <===== Must by use on end of this seeder
-        $this->insertAllTranslations();  ///   <===== Must by use on end of this seeder
+        $this->joinAllByTransaction(); ///   <===== Must by use on end of this seeder
+        $this->insertAllTranslations(); ///   <===== Must by use on end of this seeder
     }
 }
