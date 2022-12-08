@@ -6,7 +6,8 @@
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <x-card title="{{ $project->project_name }}">
               <x-slot:toolbar>
-                <a href="{{ route('project.task.create', $project->hashid) }}" class="btn btn-success">Add Task</a>
+                <a href="{{ route('project.task.create', $project->hashid) }}" class="btn btn-success text-white">Add Task</a>
+                <a href="{{ route('project.index') }}" class="btn btn-secondary">Back</a>
               </x-slot:toolbar>
               <table class="table">
                 <thead>
@@ -196,25 +197,25 @@
         if (budget) {
           html += '<table class="table table-sm " style="font-size:9px">';
           html += '<tr class="text-center align-middle">\
-                                            <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
-                                            <td colspan="2">งบกลาง IT</td>\
-                                            <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
-                                          </tr>';
+                                                        <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
+                                                        <td colspan="2">งบกลาง IT</td>\
+                                                        <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
+                                                      </tr>';
           html += '<tr>\
-                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                            <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                            <td>ค่าสาธารณูปโภค</td>\
-                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                            <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                          </tr>';
+                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                        <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                        <td>ค่าสาธารณูปโภค</td>\
+                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                        <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                      </tr>';
           html += '<tr class="text-end">\
-                                            <td>' + budget_gov_operating + '</td>\
-                                            <td>' + budget_gov_investment + '</td>\
-                                            <td>' + budget_gov_utility + '</td>\
-                                            <td>' + budget_it_operating + '</td>\
-                                            <td>' + budget_it_investment + '</td>\
-                                            <td class="text-success">' + budget + '</td>\
-                                          </tr>';
+                                                        <td>' + budget_gov_operating + '</td>\
+                                                        <td>' + budget_gov_investment + '</td>\
+                                                        <td>' + budget_gov_utility + '</td>\
+                                                        <td>' + budget_it_operating + '</td>\
+                                                        <td>' + budget_it_investment + '</td>\
+                                                        <td class="text-success">' + budget + '</td>\
+                                                      </tr>';
           html += '</table>';
         }
 

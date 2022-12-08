@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->integer('project_id', true);
             $table->string('project_name')->nullable();
             $table->text('project_description')->nullable();
-            $table->integer('project_type')->nullable();
+            $table->string('project_type')->nullable();
             $table->timestamp('project_start_date')->nullable();
             $table->timestamp('project_end_date')->nullable();
             $table->integer('budget_gov_operating')->nullable();

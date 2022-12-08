@@ -6,7 +6,7 @@
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <x-card title="โครงการทั้งหมด">
               <x-slot:toolbar>
-                <a href="{{ route('project.create') }}" class="btn btn-success">Add Project</a>
+                <a href="{{ route('project.create') }}" class="btn btn-success text-white">Add Project</a>
               </x-slot:toolbar>
               <table class="table">
                 <thead>
@@ -25,9 +25,9 @@
                         <span class="badge bg-primary">{{ \Helper::date($project->project_start_date) }}</span>
                         <span class="badge bg-primary">{{ \Helper::date($project->project_end_date) }}</span>
                       </td>
-                      <td>
-                        <a href="{{ route('project.show', $project->hashid) }}" class="btn">Show</a>
-                        <form action="{{ route('project.destroy', $project->hashid) }}" method="POST">
+                      <td class="text-end">
+                        <a href="{{ route('project.show', $project->hashid) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                        <form action="{{ route('project.destroy', $project->hashid) }}" method="POST" style="display:inline">
                           @method('DELETE')
                           @csrf
                           <button class="btn btn-danger text-white"><i class="cil-trash"></i></button>
