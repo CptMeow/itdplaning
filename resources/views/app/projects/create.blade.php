@@ -1,0 +1,106 @@
+<x-app-layout>
+  <x-slot:content>
+    <div class="container-fluid">
+      <div class="animated fadeIn">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <x-card title="{{ __('เพิ่มข้อมูลงาน/โครงการ') }}">
+              <form method="POST" action="{{ route('project.store') }}" class="row g-3">
+                @csrf
+                <div class="col-md-12">
+                  <label for="project_name" class="form-label">{{ __('ชื่องาน/โครงการ') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="project_name" name="project_name" required autofocus>
+                  <div class="invalid-feedback">
+                    {{ __('ชื่องาน/โครงการ ซ้ำ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="project_description" class="form-label">{{ __('รายละเอียดงาน/โครงการ') }}</label>
+                  <textarea class="form-control" name="project_description" id="project_description" rows="10"></textarea>
+                  <div class="invalid-feedback">
+                    {{ __('รายละเอียดงาน/โครงการ') }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="project_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
+                  <div data-coreui-toggle="date-picker" id="project_start_date"></div>
+                </div>
+                <div class="col-md-6">
+                  <label for="project_end_date" class="form-label">{{ __('วันที่สิ้นสุด') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
+                  <div data-coreui-toggle="date-picker" id="project_end_date"></div>
+                </div>
+
+                <h4>งบประมาณ</h4>
+
+                <div class="row">
+                  <div class="col-6">
+                    <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
+                    <div class="col-md-12">
+                      <label for="budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                      <input type="number" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0">
+                      <div class="invalid-feedback">
+                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                      <input type="number" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0">
+                      <div class="invalid-feedback">
+                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
+                      <input type="number" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0">
+                      <div class="invalid-feedback">
+                        {{ __('ระบุค่าสาธารณูปโภค') }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <strong>เงินงบกลาง IT</strong>
+                    <div class="col-md-12">
+                      <label for="budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                      <input type="number" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0">
+                      <div class="invalid-feedback">
+                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                      <input type="number" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0">
+                      <div class="invalid-feedback">
+                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <x-button class="btn-success" type="submit">{{ __('coreuiforms.save') }}</x-button>
+                <x-button link="{{ route('project.index') }}" class="btn-light text-black">{{ __('coreuiforms.return') }}</x-button>
+              </form>
+            </x-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </x-slot:content>
+  <x-slot:css>
+  </x-slot:css>
+  <x-slot:javascript>
+
+  </x-slot:javascript>
+</x-app-layout>

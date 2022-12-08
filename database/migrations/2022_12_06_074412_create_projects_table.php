@@ -28,6 +28,7 @@ class CreateProjectsTable extends Migration
             $table->integer('project_cost')->nullable();
             $table->integer('project_owner')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

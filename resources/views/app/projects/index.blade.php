@@ -4,43 +4,41 @@
       <div class="animated fadeIn">
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="card">
-              <div class="card-header">
-                <div class="col-6">
-                  <h4>
-                    <i class="cil-description me-2"></i>
-                  </h4>
-                </div>
-                <div class="col-6"></div>
-              </div>
-              <div class="card-body">
-                <table class="table">
-                  <thead>
+            <x-card title="โครงการทั้งหมด">
+              <x-slot:toolbar>
+                <a href="{{ route('project.create') }}" class="btn btn-success">Add Project</a>
+              </x-slot:toolbar>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($projects as $project)
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
+                      <td></td>
+                      <td>
+                        {{ $project['project_name'] }}<br>
+                        <span class="badge bg-primary">{{ \Helper::date($project->project_start_date) }}</span>
+                        <span class="badge bg-primary">{{ \Helper::date($project->project_end_date) }}</span>
+                      </td>
+                      <td>
+                        <a href="{{ route('project.show', $project->hashid) }}" class="btn">Show</a>
+                        <a href="{{ route('project.task.create', $project->hashid) }}" class="btn">Add Task</a>
+                        <form action="{{ route('project.destroy', $project->hashid) }}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button class="btn btn-danger text-white"><i class="cil-trash"></i></button>
+                        </form>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($projects as $project)
-                      <tr>
-                        <td></td>
-                        <td>
-                          {{ $project['project_name'] }}<br>
-                          <span class="badge bg-primary">{{ \Helper::date($project->project_start_date) }}</span>
-                          <span class="badge bg-primary">{{ \Helper::date($project->project_end_date) }}</span>
-                        </td>
-                        <td>
-                          <a href="{{route('project.show',$project->hashid)}}" class="btn">Show</a>
-                          <a href="{{route('project.task.create',$project->hashid)}}" class="btn">Add Task</a>
-                        </td>
-                      </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  @endforeach
+                </tbody>
+              </table>
+            </x-card>
           </div>
         </div>
       </div>

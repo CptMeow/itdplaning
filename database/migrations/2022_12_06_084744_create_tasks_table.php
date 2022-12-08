@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->timestamp('task_end_date');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

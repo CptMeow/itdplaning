@@ -44,7 +44,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'project_name', 'project_description', 'project_type', 'project_start_date', 'project_end_date', 'budget_gov_operating', 'budget_gov_investment', 'budget_gov_utility', 'budget_it_operating', 'budget_it_investment', 'project_cost', 'project_owner', 'craeted_at', 'updated_at'
+        'project_name', 'project_description', 'project_type', 'project_start_date', 'project_end_date', 'budget_gov_operating', 'budget_gov_investment', 'budget_gov_utility', 'budget_it_operating', 'budget_it_investment', 'project_cost', 'project_owner', 'craeted_at', 'updated_at',
     ];
 
     /**
@@ -53,7 +53,7 @@ class Project extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -62,7 +62,7 @@ class Project extends Model
      * @var array
      */
     protected $casts = [
-        'project_id' => 'int', 'project_name' => 'string', 'project_description' => 'string', 'project_type' => 'int', 'project_start_date' => 'timestamp', 'project_end_date' => 'timestamp', 'budget_gov_operating' => 'int', 'budget_gov_investment' => 'int', 'budget_gov_utility' => 'int', 'budget_it_operating' => 'int', 'budget_it_investment' => 'int', 'project_cost' => 'int', 'project_owner' => 'int', 'craeted_at' => 'timestamp', 'updated_at' => 'timestamp'
+        'project_id' => 'int', 'project_name' => 'string', 'project_description' => 'string', 'project_type' => 'int', 'project_start_date' => 'timestamp', 'project_end_date' => 'timestamp', 'budget_gov_operating' => 'int', 'budget_gov_investment' => 'int', 'budget_gov_utility' => 'int', 'budget_it_operating' => 'int', 'budget_it_investment' => 'int', 'project_cost' => 'int', 'project_owner' => 'int', 'craeted_at' => 'timestamp', 'updated_at' => 'timestamp',
     ];
 
     /**
@@ -71,7 +71,7 @@ class Project extends Model
      * @var array
      */
     protected $dates = [
-        'project_start_date', 'project_end_date', 'craeted_at', 'updated_at'
+        'project_start_date', 'project_end_date', 'craeted_at', 'updated_at',
     ];
 
     /**

@@ -1,8 +1,4 @@
-@props([
-    'content',
-    'css' => '',
-    'javascript' => '',
-])
+@props(['content', 'css' => '', 'javascript' => ''])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
