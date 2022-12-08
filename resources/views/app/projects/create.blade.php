@@ -17,6 +17,24 @@
               <form method="POST" action="{{ route('project.store') }}" class="row g-3">
                 @csrf
                 <div class="col-md-12">
+                  <label for="project_type" class="form-label">{{ __('ประเภทงาน/โครงการ') }}</label> <span class="text-danger">*</span>
+                  <div class="form-check form-check-inline ms-5">
+                    <input class="form-check-input" type="radio" name="project_type" id="project_type1" value="J" checked>
+                    <label class="form-check-label" for="project_type1">
+                      งานประจำ
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="project_type" id="project_type2" value="P">
+                    <label class="form-check-label" for="project_type2">
+                      โครงการ
+                    </label>
+                  </div>
+                  <div class="invalid-feedback">
+                    {{ __('ประเภทงาน/โครงการ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <label for="project_name" class="form-label">{{ __('ชื่องาน/โครงการ') }}</label> <span class="text-danger">*</span>
                   <input type="text" class="form-control" id="project_name" name="project_name" required autofocus>
                   <div class="invalid-feedback">

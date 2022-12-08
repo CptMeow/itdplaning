@@ -27,7 +27,6 @@
                       </td>
                       <td>
                         <a href="{{ route('project.show', $project->hashid) }}" class="btn">Show</a>
-                        <a href="{{ route('project.task.create', $project->hashid) }}" class="btn">Add Task</a>
                         <form action="{{ route('project.destroy', $project->hashid) }}" method="POST">
                           @method('DELETE')
                           @csrf
