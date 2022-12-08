@@ -169,11 +169,15 @@ class ProjectsController extends Controller
             'date-picker-project_end_date'   => 'required',
         ]);
 
+        //convert date
+        $start_date = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-project_start_date')), 'Y-m-d');
+        $end_date   = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-project_end_date')), 'Y-m-d');
+
         $project->project_name        = $request->input('project_name');
         $project->project_description = $request->input('project_description');
         $project->project_type        = $request->input('project_type');
-        $project->project_start_date  = $request->input('date-picker-project_start_date') ?? date('Y-m-d 00:00:00');
-        $project->project_end_date    = $request->input('date-picker-project_end_date') ?? date('Y-m-d 00:00:00');
+        $project->project_start_date  = $start_date ?? date('Y-m-d 00:00:00');
+        $project->project_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 
         // $project->budget_gov = $request->input('budget_gov');
         // $project->budget_it  = $request->input('budget_it');
@@ -205,11 +209,15 @@ class ProjectsController extends Controller
             'date-picker-task_end_date'   => 'required',
         ]);
 
+        //convert date
+        $start_date = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-task_start_date')), 'Y-m-d');
+        $end_date   = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-task_end_date')), 'Y-m-d');
+
         $task->project_id       = $id;
         $task->task_name        = $request->input('task_name');
         $task->task_description = $request->input('task_description');
-        $task->task_start_date  = $request->input('date-picker-task_start_date') ?? date('Y-m-d 00:00:00');
-        $task->task_end_date    = $request->input('date-picker-task_end_date') ?? date('Y-m-d 00:00:00');
+        $task->task_start_date  = $start_date ?? date('Y-m-d 00:00:00');
+        $task->task_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 
         $task->task_budget_gov_operating  = $request->input('task_budget_gov_operating');
         $task->task_budget_gov_investment = $request->input('task_budget_gov_investment');
