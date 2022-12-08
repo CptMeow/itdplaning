@@ -26,9 +26,14 @@
                         <span class="badge bg-primary">{{ \Helper::date($task->task_start_date) }}</span>
                         <span class="badge bg-primary">{{ \Helper::date($task->task_end_date) }}</span>
                       </td>
-                      <td>
-                        {{-- <a href="{{route('project.show',$project->hashid)}}" class="btn">Show</a>
-                        <a href="{{route('project.task.create',$project->hashid)}}" class="btn">Add Task</a> --}}
+                      <td class="text-end">
+                        <a href="{{ route('project.task.show', ['project' => $project->hashid, 'task' => $task->hashid]) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                        <a href="{{ route('project.task.edit', ['project' => $project->hashid, 'task' => $task->hashid]) }}" class="btn btn-warning text-white"> <i class="cil-cog"></i> </a>
+                        <form action="{{ route('project.task.destroy', ['project' => $project->hashid, 'task' => $task->hashid]) }}" method="POST" style="display:inline">
+                          @method('DELETE')
+                          @csrf
+                          <button class="btn btn-danger text-white"><i class="cil-trash"></i></button>
+                        </form>
                       </td>
                     </tr>
                   @endforeach
@@ -197,25 +202,25 @@
         if (budget) {
           html += '<table class="table table-sm " style="font-size:9px">';
           html += '<tr class="text-center align-middle">\
-                                                        <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
-                                                        <td colspan="2">งบกลาง IT</td>\
-                                                        <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
-                                                      </tr>';
+                                                                                                            <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
+                                                                                                            <td colspan="2">งบกลาง IT</td>\
+                                                                                                            <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
+                                                                                                          </tr>';
           html += '<tr>\
-                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                        <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                        <td>ค่าสาธารณูปโภค</td>\
-                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                        <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                      </tr>';
+                                                                                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                            <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                            <td>ค่าสาธารณูปโภค</td>\
+                                                                                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                            <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                          </tr>';
           html += '<tr class="text-end">\
-                                                        <td>' + budget_gov_operating + '</td>\
-                                                        <td>' + budget_gov_investment + '</td>\
-                                                        <td>' + budget_gov_utility + '</td>\
-                                                        <td>' + budget_it_operating + '</td>\
-                                                        <td>' + budget_it_investment + '</td>\
-                                                        <td class="text-success">' + budget + '</td>\
-                                                      </tr>';
+                                                                                                            <td>' + budget_gov_operating + '</td>\
+                                                                                                            <td>' + budget_gov_investment + '</td>\
+                                                                                                            <td>' + budget_gov_utility + '</td>\
+                                                                                                            <td>' + budget_it_operating + '</td>\
+                                                                                                            <td>' + budget_it_investment + '</td>\
+                                                                                                            <td class="text-success">' + budget + '</td>\
+                                                                                                          </tr>';
           html += '</table>';
         }
 

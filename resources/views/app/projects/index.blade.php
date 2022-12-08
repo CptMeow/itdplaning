@@ -27,6 +27,7 @@
                       </td>
                       <td class="text-end">
                         <a href="{{ route('project.show', $project->hashid) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                        <a href="{{ route('project.edit', $project->hashid) }}" class="btn btn-warning text-white"> <i class="cil-cog"></i> </a>
                         <form action="{{ route('project.destroy', $project->hashid) }}" method="POST" style="display:inline">
                           @method('DELETE')
                           @csrf
