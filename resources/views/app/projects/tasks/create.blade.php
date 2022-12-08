@@ -30,6 +30,19 @@
                     {{ __('รายละเอียดกิจกรรม') }}
                   </div>
                 </div>
+                <div class="col-md-12">
+                  <label for="task_parent" class="form-label">{{ __('เป็นกิจกรรมย่อย') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="task_parent" name="task_parent"> --}}
+                  <select name="task_parent" id="task_parent" class="from-control">
+                    <option value="">ไม่มี</option>
+                    @foreach ($tasks as $task)
+                      <option value="{{ $task->task_id }}">{{ $task->task_name }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">
+                    {{ __('กิจกรรมย่อย') }}
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <label for="task_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}

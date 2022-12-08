@@ -123,26 +123,27 @@ class ProjectsController extends Controller
         ];
 
         foreach ($project->task as $task) {
-            // (Int) $__budget_gov = (Int) $project['budget_gov_operating'] + (Int) $project['budget_gov_utility'] + (Int) $project['budget_gov_investment'];
-            // (Int) $__budget_it = (Int) $project['budget_it_operating'] + (Int) $project['budget_it_investment'];
-            // (Int) $__budget = $__budget_gov + $__budget_it;
-            // (Int) $__balance = $__budget + (Int) $project['project_cost'];
+            (Int) $__budget_gov = (Int) $task['task_budget_gov_operating'] + (Int) $task['task_budget_gov_utility'] + (Int) $task['task_budget_gov_investment'];
+            (Int) $__budget_it  = (Int) $task['task_budget_it_operating'] + (Int) $task['task_budget_it_investment'];
+            (Int) $__budget     = $__budget_gov + $__budget_it;
+            (Int) $__balance    = $__budget + (Int) $task['project_cost'];
 
             $gantt[] = [
-                'id'         => $task['task_id'] . $task['project_id'],
-                'text'       => $task['task_name'],
-                'start_date' => date('Y-m-d', $task['task_start_date']),
-                'end_date'   => date('Y-m-d', $task['task_end_date']),
-                'parent'     => $task['project_id'],
-                'type'       => 'task',
-                // 'budget_gov_operating' => $project['budget_gov_operating'],
-                // 'budget_gov_investment' => $project['budget_gov_investment'],
-                // 'budget_gov_utility' => $project['budget_gov_utility'],
-                // 'budget_gov' => $__budget_gov,
-                // 'budget_it_operating' => $project['budget_it_operating'],
-                // 'budget_it_investment' => $project['budget_it_investment'],
-                // 'budget_it' => $__budget_it,
-                // 'budget' => $__budget,
+                'id'                    => 'T' . $task['task_id'] . $task['project_id'],
+                'text'                  => $task['task_name'],
+                'start_date'            => date('Y-m-d', $task['task_start_date']),
+                'end_date'              => date('Y-m-d', $task['task_end_date']),
+                'parent'                => $task['task_parent'] ? 'T' . $task['task_parent'] . $task['project_id'] : $task['project_id'],
+                'type'                  => 'task',
+                'open'                  => true,
+                'budget_gov_operating'  => $task['task_budget_gov_operating'],
+                'budget_gov_investment' => $task['task_budget_gov_investment'],
+                'budget_gov_utility'    => $task['task_budget_gov_utility'],
+                'budget_gov'            => $__budget_gov,
+                'budget_it_operating'   => $task['task_budget_it_operating'],
+                'budget_it_investment'  => $task['task_budget_it_investment'],
+                'budget_it'             => $__budget_it,
+                'budget'                => $__budget,
                 // 'balance' => $__balance,
                 // 'cost' => $project['project_cost'],
                 // 'owner' => $project['project_owner'],
@@ -270,7 +271,10 @@ class ProjectsController extends Controller
 
     public function taskCreate(Request $request, $project)
     {
-        return view('app.projects.tasks.create', compact('project'));
+        $id    = Hashids::decode($project)[0];
+        $tasks = Task::where('project_id', $id)->get();
+
+        return view('app.projects.tasks.create', compact('project', 'tasks'));
     }
 
     public function taskStore(Request $request, $project)
@@ -293,6 +297,8 @@ class ProjectsController extends Controller
         $task->task_description = $request->input('task_description');
         $task->task_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $task->task_end_date    = $end_date ?? date('Y-m-d 00:00:00');
+
+        $task->task_parent = $request->input('task_parent') ?? null;
 
         $task->task_budget_gov_operating  = $request->input('task_budget_gov_operating');
         $task->task_budget_gov_investment = $request->input('task_budget_gov_investment');

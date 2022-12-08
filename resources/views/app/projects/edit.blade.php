@@ -14,8 +14,9 @@
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <x-card title="{{ __('แก้ไขข้อมูลงาน/โครงการ') }} {{ $project->project_name }}">
-              <form method="POST" action="{{ route('project.store') }}" class="row g-3">
+              <form method="POST" action="{{ route('project.update', $project->hashid) }}" class="row g-3">
                 @csrf
+                {{ method_field('PUT') }}
                 <div class="col-md-12">
                   <label for="project_type" class="form-label">{{ __('ประเภทงาน/โครงการ') }}</label> <span class="text-danger">*</span>
                   <div class="form-check form-check-inline ms-5">

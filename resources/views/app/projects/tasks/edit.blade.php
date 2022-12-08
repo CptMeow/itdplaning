@@ -16,6 +16,7 @@
             <x-card title="{{ __('แก้ไขกิจกรรม') }} {{ $task->task_name }}">
               <form method="POST" action="{{ route('project.task.update', ['project' => $project->hashid, 'task' => $task->hashid]) }}" class="row g-3">
                 @csrf
+                {{ method_field('PUT') }}
                 <div class="col-md-12">
                   <label for="task_name" class="form-label">{{ __('ชื่อกิจกรรม') }}</label> <span class="text-danger">*</span>
                   <input type="text" class="form-control" id="task_name" name="task_name" value="{{ $task->task_name }}" required autofocus>
