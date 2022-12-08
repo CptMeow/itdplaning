@@ -16,7 +16,7 @@ Route::group(['middleware' => ['role:user', 'get.menu']], function () {
     Route::get('/project/{project}/task/create', [ProjectsController::class, 'taskCreate'])->name('project.task.create');
     Route::post('/project/{project}/task/create', [ProjectsController::class, 'taskStore'])->name('project.task.store');
     Route::get('/project/{project}/task/{task}/edit', [ProjectsController::class, 'taskEdit'])->name('project.task.edit');
-    Route::post('/project/{project}/task/{task}/update', [ProjectsController::class, 'taskUpdate'])->name('project.task.update');
+    Route::PUT('/project/{project}/task/{task}/update', [ProjectsController::class, 'taskUpdate'])->name('project.task.update');
     Route::DELETE('/project/{project}/task/{task}/destroy', [ProjectsController::class, 'taskDestroy'])->name('project.task.destroy');
     Route::get('/project/{project}/task/{task}', [ProjectsController::class, 'taskShow'])->name('project.task.show');
     Route::resource('project', ProjectsController::class);
