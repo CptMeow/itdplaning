@@ -22,8 +22,11 @@
                       <td></td>
                       <td>
                         {{ $project['project_name'] }}<br>
-                        <span class="badge bg-primary">{{ \Helper::date($project->project_start_date) }}</span>
-                        <span class="badge bg-primary">{{ \Helper::date($project->project_end_date) }}</span>
+                        <span class="badge bg-info">{{ \Helper::date($project->project_start_date) }}</span> -
+                        <span class="badge bg-info">{{ \Helper::date($project->project_end_date) }}</span>
+                        @if ($project->task->count() > 0)
+                          <span class="badge bg-warning">{{ $project->task->count() }} กิจกรรมย่อย</span>
+                        @endif
                       </td>
                       <td class="text-end">
                         <a href="{{ route('project.show', $project->hashid) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>

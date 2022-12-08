@@ -151,7 +151,6 @@ class ProjectsController extends Controller
         $gantt = json_encode($gantt);
 
         return view('app.projects.show', compact('project', 'gantt'));
-
     }
 
     public function create(Request $request)
