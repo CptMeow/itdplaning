@@ -128,7 +128,16 @@ class ProjectController extends Controller
             (Int) $__budget_gov = (Int) $task['task_budget_gov_operating'] + (Int) $task['task_budget_gov_utility'] + (Int) $task['task_budget_gov_investment'];
             (Int) $__budget_it  = (Int) $task['task_budget_it_operating'] + (Int) $task['task_budget_it_investment'];
             (Int) $__budget     = $__budget_gov + $__budget_it;
-            (Int) $__balance    = $__budget + (Int) $task['project_cost'];
+
+            (Int) $__cost = array_sum([
+                $task['task_cost_gov_operating'],
+                $task['task_cost_gov_investment'],
+                $task['task_cost_gov_utility'],
+                $task['task_cost_it_operating'],
+                $task['task_cost_it_investment'],
+            ]);
+
+            (Int) $__balance = $__budget - $__cost;
 
             $gantt[] = [
                 'id'                    => 'T' . $task['task_id'] . $task['project_id'],
@@ -146,8 +155,8 @@ class ProjectController extends Controller
                 'budget_it_investment'  => $task['task_budget_it_investment'],
                 'budget_it'             => $__budget_it,
                 'budget'                => $__budget,
-                // 'balance' => $__balance,
-                // 'cost' => $project['project_cost'],
+                'balance'               => $__balance,
+                'cost'                  => $__cost,
                 // 'owner' => $project['project_owner'],
             ];
         }
@@ -268,6 +277,14 @@ class ProjectController extends Controller
 
     public function taskShow(Request $request, $project, $task)
     {
+        $id_project = Hashids::decode($project)[0];
+        $id_task    = Hashids::decode($task)[0];
+        $project    = Project::find($id_project);
+        $task       = task::find($id_task);
+
+        echo 'contract' . $task->contract->count();
+        dd($task->contract);
+
         return 'Under Construction';
     }
 
@@ -309,14 +326,23 @@ class ProjectController extends Controller
         $task->task_budget_it_operating   = $request->input('task_budget_it_operating');
         $task->task_budget_it_investment  = $request->input('task_budget_it_investment');
 
+        $task->task_cost_gov_operating  = $request->input('task_cost_gov_operating');
+        $task->task_cost_gov_investment = $request->input('task_cost_gov_investment');
+        $task->task_cost_gov_utility    = $request->input('task_cost_gov_utility');
+        $task->task_cost_it_operating   = $request->input('task_cost_it_operating');
+        $task->task_cost_it_investment  = $request->input('task_cost_it_investment');
+
         if ($task->save()) {
 
             //insert contract
-            $contract_has_task = new ContractHasTask;
+            if ($request->input('task_contract')) {
+                //insert contract
+                $contract_has_task = new ContractHasTask;
 
-            $contract_has_task->contract_id = $request->input('task_contract');
-            $contract_has_task->task_id     = $task->task_id;
-            $contract_has_task->save();
+                $contract_has_task->contract_id = $request->input('task_contract');
+                $contract_has_task->task_id     = $task->task_id;
+                $contract_has_task->save();
+            }
 
             return redirect()->route('project.show', $project);
         }
@@ -334,8 +360,12 @@ class ProjectController extends Controller
         $id_task    = Hashids::decode($task)[0];
         $project    = Project::find($id_project);
         $task       = task::find($id_task);
+        $tasks      = Task::where('project_id', $id_project)
+            ->whereNot('task_id', $id_task)
+            ->get();
+        $contracts = Contract::get();
 
-        return view('app.projects.tasks.edit', compact('project', 'task'));
+        return view('app.projects.tasks.edit', compact('contracts', 'project', 'task', 'tasks'));
     }
 
     /**
@@ -367,13 +397,33 @@ class ProjectController extends Controller
         $task->task_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $task->task_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 
+        $task->task_parent = $request->input('task_parent') ?? null;
+
         $task->task_budget_gov_operating  = $request->input('task_budget_gov_operating');
         $task->task_budget_gov_investment = $request->input('task_budget_gov_investment');
         $task->task_budget_gov_utility    = $request->input('task_budget_gov_utility');
         $task->task_budget_it_operating   = $request->input('task_budget_it_operating');
         $task->task_budget_it_investment  = $request->input('task_budget_it_investment');
 
+        $task->task_cost_gov_operating  = $request->input('task_cost_gov_operating');
+        $task->task_cost_gov_investment = $request->input('task_cost_gov_investment');
+        $task->task_cost_gov_utility    = $request->input('task_cost_gov_utility');
+        $task->task_cost_it_operating   = $request->input('task_cost_it_operating');
+        $task->task_cost_it_investment  = $request->input('task_cost_it_investment');
+
         if ($task->save()) {
+
+            //update contract
+            if ($request->input('task_contract')) {
+                ContractHasTask::where('task_id', $id_task)->delete();
+                ContractHasTask::Create([
+                    'contract_id' => $request->input('task_contract'),
+                    'task_id'     => $id_task,
+                ]);
+            } else {
+                ContractHasTask::where('task_id', $id_task)->delete();
+            }
+
             return redirect()->route('project.show', $project->hashid);
         }
     }

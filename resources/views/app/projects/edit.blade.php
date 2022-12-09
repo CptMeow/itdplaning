@@ -62,53 +62,56 @@
                   <div data-coreui-toggle="date-picker" id="project_end_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $project->project_end_date) }}"></div>
                 </div>
 
-                <h4>งบประมาณ</h4>
-
                 <div class="row">
-                  <div class="col-6">
-                    <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
-                    <div class="col-md-12">
-                      <label for="budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0" value="{{ $project->budget_gov_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0" value="{{ $project->budget_gov_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0" value="{{ $project->budget_gov_utility }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุค่าสาธารณูปโภค') }}
-                      </div>
-                    </div>
-                  </div>
+                  <h4>งบประมาณ</h4>
 
-                  <div class="col-6">
-                    <strong>เงินงบกลาง IT</strong>
-                    <div class="col-md-12">
-                      <label for="budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0" value="{{ $project->budget_it_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                  <div class="row">
+                    <div class="col-6">
+                      <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
+                      <div class="col-md-12">
+                        <label for="budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0" value="{{ $project->budget_gov_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0" value="{{ $project->budget_it_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                      <div class="col-md-12">
+                        <label for="budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0" value="{{ $project->budget_gov_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
+                        <input type="number" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0" value="{{ $project->budget_gov_utility }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุค่าสาธารณูปโภค') }}
+                        </div>
                       </div>
                     </div>
 
+                    <div class="col-6">
+                      <strong>เงินงบกลาง IT</strong>
+                      <div class="col-md-12">
+                        <label for="budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0" value="{{ $project->budget_it_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0" value="{{ $project->budget_it_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
+
 
                 <x-button class="btn-success" type="submit">{{ __('coreuiforms.save') }}</x-button>
                 <x-button link="{{ route('project.index') }}" class="btn-light text-black">{{ __('coreuiforms.return') }}</x-button>

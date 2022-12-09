@@ -33,6 +33,39 @@
                     {{ __('รายละเอียดกิจกรรม') }}
                   </div>
                 </div>
+
+                <div class="col-md-12">
+                  <label for="task_parent" class="form-label">{{ __('เป็นกิจกรรมย่อย') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="task_parent" name="task_parent"> --}}
+                  <select name="task_parent" id="task_parent" class="from-control">
+                    <option value="">ไม่มี</option>
+                    @foreach ($tasks as $subtask)
+                      <option value="{{ $subtask->task_id }}" {{ $task->task_parent == $subtask->task_id ? 'selected' : '' }}>{{ $subtask->task_name }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">
+                    {{ __('กิจกรรมย่อย') }}
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="task_contract" class="form-label">{{ __('สัญญา') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="task_contract" name="task_contract"> --}}
+                  <select name="task_contract" id="task_contract" class="from-control">
+                    <option value="">ไม่มี</option>
+                    @foreach ($contracts as $contract)
+                      @if ($task->contract->count() > 0 && $contract->contract_id == $task->contract->first()->contract_id)
+                        <option value="{{ $contract->contract_id }}"selected>[{{ $contract->contract_number }}]{{ $contract->contract_name }}</option>
+                      @else
+                        <option value="{{ $contract->contract_id }}">[{{ $contract->contract_number }}]{{ $contract->contract_name }}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">
+                    {{ __('สัญญา') }}
+                  </div>
+                </div>
+
                 <div class="col-md-6">
                   <label for="task_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
@@ -44,52 +77,103 @@
                   <div data-coreui-toggle="date-picker" id="task_end_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $task->task_end_date) }}"></div>
                 </div>
 
-
-                <h4>งบประมาณ</h4>
-
                 <div class="row">
-                  <div class="col-6">
-                    <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
-                    <div class="col-md-12">
-                      <label for="task_budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="task_budget_gov_operating" name="task_budget_gov_operating" min="0" value="{{ $task->task_budget_gov_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                  <h4>งบประมาณ</h4>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
+                      <div class="col-md-12">
+                        <label for="task_budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_budget_gov_operating" name="task_budget_gov_operating" min="0" value="{{ $task->task_budget_gov_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="task_budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_budget_gov_investment" name="task_budget_gov_investment" min="0" value="{{ $task->task_budget_gov_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="task_budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
+                        <input type="number" class="form-control" id="task_budget_gov_utility" name="task_budget_gov_utility" min="0" value="{{ $task->task_budget_gov_utility }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุค่าสาธารณูปโภค') }}
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <label for="task_budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="task_budget_gov_investment" name="task_budget_gov_investment" min="0" value="{{ $task->task_budget_gov_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+
+                    <div class="col-6">
+                      <strong>เงินงบกลาง IT</strong>
+                      <div class="col-md-12">
+                        <label for="task_budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_budget_it_operating" name="task_budget_it_operating" min="0" value="{{ $task->task_budget_it_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="task_budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
-                      <input type="number" class="form-control" id="task_budget_gov_utility" name="task_budget_gov_utility" min="0" value="{{ $task->task_budget_gov_utility }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุค่าสาธารณูปโภค') }}
+                      <div class="col-md-12">
+                        <label for="task_budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_budget_it_investment" name="task_budget_it_investment" min="0" value="{{ $task->task_budget_it_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
                       </div>
+
                     </div>
                   </div>
+                </div>
 
-                  <div class="col-6">
-                    <strong>เงินงบกลาง IT</strong>
-                    <div class="col-md-12">
-                      <label for="task_budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="task_budget_it_operating" name="task_budget_it_operating" min="0" value="{{ $task->task_budget_it_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                <div class="row">
+                  <h4>ค่าใช้จ่าย</h4>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
+                      <div class="col-md-12">
+                        <label for="task_cost_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_cost_gov_operating" name="task_cost_gov_operating" min="0" value="{{ $task->task_cost_gov_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="task_cost_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_cost_gov_investment" name="task_cost_gov_investment" min="0" value="{{ $task->task_cost_gov_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="task_cost_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
+                        <input type="number" class="form-control" id="task_cost_gov_utility" name="task_cost_gov_utility" min="0" value="{{ $task->task_cost_gov_utility }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุค่าสาธารณูปโภค') }}
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <label for="task_budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="task_budget_it_investment" name="task_budget_it_investment" min="0" value="{{ $task->task_budget_it_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
-                      </div>
-                    </div>
 
+                    <div class="col-6">
+                      <strong>เงินงบกลาง IT</strong>
+                      <div class="col-md-12">
+                        <label for="task_cost_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_cost_it_operating" name="task_cost_it_operating" min="0" value="{{ $task->task_cost_it_operating }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <label for="task_cost_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
+                        <input type="number" class="form-control" id="task_cost_it_investment" name="task_cost_it_investment" min="0" value="{{ $task->task_cost_it_investment }}">
+                        <div class="invalid-feedback">
+                          {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
 
