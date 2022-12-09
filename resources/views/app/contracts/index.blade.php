@@ -21,7 +21,8 @@
                     <tr>
                       <td></td>
                       <td>
-                        {{ $contract['contract_name'] }}<br>
+                        {{ $contract->contract_name }}<br>
+                        <span class="badge bg-success">{{ $contract->contract_number }}</span>
                         <span class="badge bg-info">{{ \Helper::date($contract->contract_start_date) }}</span> -
                         <span class="badge bg-info">{{ \Helper::date($contract->contract_end_date) }}</span>
                         @if ($contract->task->count() > 0)
