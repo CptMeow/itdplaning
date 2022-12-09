@@ -7,11 +7,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <meta name="description" content="CoreUI - Bootstrap Admin Template">
+  <meta name="description" content="Shibaza Framework">
   <meta name="author" content="CptMeow">
-  <meta name="keyword" content="Bootstrap,Admin,Template,SCSS,HTML,RWD,Dashboard">
+  <meta name="keyword" content="Shibaza">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'Shibaza Framework') }}</title>
   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/favicon/apple-icon-57x57.png') }}">
   <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/favicon/apple-icon-60x60.png') }}">
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/favicon/apple-icon-72x72.png') }}">
@@ -87,6 +87,18 @@
     let selectLocale = document.getElementById("select-locale")
     selectLocale.addEventListener("change", function() {
       document.getElementById('select-locale-form').submit();
+    });
+  </script>
+  <script>
+    // $( document ).ready(function() {
+
+    // });
+    $("#btn-delete").click(function() {
+      if (confirm("Are you sure you want to delete this?")) {
+        return true;
+      } else {
+        return false;
+      }
     });
   </script>
   <!--JS PAGE-->
