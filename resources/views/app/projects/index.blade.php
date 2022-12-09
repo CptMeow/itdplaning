@@ -21,11 +21,14 @@
                     <tr>
                       <td></td>
                       <td>
-                        {{ $project['project_name'] }}<br>
+                        {{ $project->project_name }}<br>
                         <span class="badge bg-info">{{ \Helper::date($project->project_start_date) }}</span> -
                         <span class="badge bg-info">{{ \Helper::date($project->project_end_date) }}</span>
                         @if ($project->task->count() > 0)
                           <span class="badge bg-warning">{{ $project->task->count() }} กิจกรรมย่อย</span>
+                        @endif
+                        @if ($project->contract->count() > 0)
+                          <span class="badge bg-danger">{{ $project->contract->count() }} สัญญา</span>
                         @endif
                       </td>
                       <td class="text-end">

@@ -97,6 +97,14 @@ class Project extends Model
 
     public function contract()
     {
-        return $this->hasMany('App\Models\ContractHasTask', 'project_id');
+        // return $this->hasMany('App\Models\ContractHasTask', 'project_id');
+        return $this->hasManyThrough(
+            'App\Models\ContractHasTask',
+            'App\Models\Task',
+            'project_id',
+            'task_id',
+            'project_id',
+            'task_id',
+        );
     }
 }
