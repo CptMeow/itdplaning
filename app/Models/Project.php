@@ -94,4 +94,9 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Task', 'project_id');
     }
+
+    public function contract()
+    {
+        return $this->hasMany('App\Models\ContractHasTask', 'project_id');
+    }
 }

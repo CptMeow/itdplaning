@@ -84,4 +84,8 @@ class Task extends Model
     }
 
     // Relations ...
+    public function contract()
+    {
+        return $this->hasMany('App\Models\ContractHasTask', 'task_id');
+    }
 }

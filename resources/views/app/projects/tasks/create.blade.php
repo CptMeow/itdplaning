@@ -43,6 +43,21 @@
                     {{ __('กิจกรรมย่อย') }}
                   </div>
                 </div>
+
+                <div class="col-md-12">
+                  <label for="task_contract" class="form-label">{{ __('สัญญา') }}</label> <span class="text-danger">*</span>
+                  {{-- <input type="text" class="form-control" id="task_contract" name="task_contract"> --}}
+                  <select name="task_contract" id="task_contract" class="from-control">
+                    <option value="">ไม่มี</option>
+                    @foreach ($contracts as $contract)
+                      <option value="{{ $contract->contract_id }}">[{{ $contract->contract_number }}]{{ $contract->contract_name }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">
+                    {{ __('กิจกรรมย่อย') }}
+                  </div>
+                </div>
+
                 <div class="col-md-6">
                   <label for="task_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
