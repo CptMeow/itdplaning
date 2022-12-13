@@ -13,105 +13,62 @@
         @endif
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <x-card title="{{ __('แก้ไขข้อมูลงาน/โครงการ') }} {{ $project->project_name }}">
-              <form method="POST" action="{{ route('project.update', $project->hashid) }}" class="row g-3">
+            <x-card title="{{ __('แก้ไขสัญญา') }}">
+              <form method="POST" action="{{ route('contract.update', $contract->hashid) }}" class="row g-3">
                 @csrf
                 {{ method_field('PUT') }}
-                <div class="col-md-12">
-                  <label for="project_type" class="form-label">{{ __('ประเภทงาน/โครงการ') }}</label> <span class="text-danger">*</span>
+                {{-- <div class="col-md-12">
+                  <label for="contract_type" class="form-label">{{ __('ประเภทงาน/โครงการ') }}</label> <span class="text-danger">*</span>
                   <div class="form-check form-check-inline ms-5">
-                    <input class="form-check-input" type="radio" name="project_type" id="project_type1" value="J" checked>
-                    <label class="form-check-label" for="project_type1">
+                    <input class="form-check-input" type="radio" name="contract_type" id="contract_type1" value="J" checked>
+                    <label class="form-check-label" for="contract_type1">
                       งานประจำ
                     </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="project_type" id="project_type2" value="P">
-                    <label class="form-check-label" for="project_type2">
+                    <input class="form-check-input" type="radio" name="contract_type" id="contract_type2" value="P">
+                    <label class="form-check-label" for="contract_type2">
                       โครงการ
                     </label>
                   </div>
                   <div class="invalid-feedback">
                     {{ __('ประเภทงาน/โครงการ') }}
                   </div>
-                </div>
+                </div> --}}
                 <div class="col-md-12">
-                  <label for="project_name" class="form-label">{{ __('ชื่องาน/โครงการ') }}</label> <span class="text-danger">*</span>
-                  <input type="text" class="form-control" id="project_name" name="project_name" value="{{ $project->project_name }}" required autofocus>
+                  <label for="contract_name" class="form-label">{{ __('ชื่อสัญญา') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="contract_name" name="contract_name" value="{{ $contract->contract_name }}" required autofocus>
                   <div class="invalid-feedback">
-                    {{ __('ชื่องาน/โครงการ ซ้ำ') }}
+                    {{ __('ชื่อสัญญา ซ้ำ') }}
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <label for="project_description" class="form-label">{{ __('รายละเอียดงาน/โครงการ') }}</label>
-                  <textarea class="form-control" name="project_description" id="project_description" rows="10">
-                    {{ $project->project_description }}
-                  </textarea>
+                  <label for="contract_number" class="form-label">{{ __('เลขที่สัญญา') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="contract_number" name="contract_number" value="{{ $contract->contract_number }}" required>
+                  <div class="invalid-feedback">
+                    {{ __('เลขที่สัญญา ซ้ำ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="contract_description" class="form-label">{{ __('รายละเอียดสัญญา') }}</label>
+                  <textarea class="form-control" name="contract_description" id="contract_description" rows="10">{{ $contract->contract_description }}</textarea>
                   <div class="invalid-feedback">
                     {{ __('รายละเอียดงาน/โครงการ') }}
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="project_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
+                  <label for="contract_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
-                  <div data-coreui-toggle="date-picker" id="project_start_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $project->project_start_date) }}"></div>
+                  <div data-coreui-toggle="date-picker" id="contract_start_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $contract->contract_start_date) }}"></div>
                 </div>
                 <div class="col-md-6">
-                  <label for="project_end_date" class="form-label">{{ __('วันที่สิ้นสุด') }}</label> <span class="text-danger">*</span>
+                  <label for="contract_end_date" class="form-label">{{ __('วันที่สิ้นสุด') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
-                  <div data-coreui-toggle="date-picker" id="project_end_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $project->project_end_date) }}"></div>
-                </div>
-
-                <h4>งบประมาณ</h4>
-
-                <div class="row">
-                  <div class="col-6">
-                    <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
-                    <div class="col-md-12">
-                      <label for="budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0" value="{{ $project->budget_gov_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0" value="{{ $project->budget_gov_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0" value="{{ $project->budget_gov_utility }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุค่าสาธารณูปโภค') }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-6">
-                    <strong>เงินงบกลาง IT</strong>
-                    <div class="col-md-12">
-                      <label for="budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0" value="{{ $project->budget_it_operating }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0" value="{{ $project->budget_it_investment }}">
-                      <div class="invalid-feedback">
-                        {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
-                      </div>
-                    </div>
-
-                  </div>
+                  <div data-coreui-toggle="date-picker" id="contract_end_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $contract->contract_end_date) }}"></div>
                 </div>
 
                 <x-button class="btn-success" type="submit">{{ __('coreuiforms.save') }}</x-button>
-                <x-button link="{{ route('project.index') }}" class="btn-light text-black">{{ __('coreuiforms.return') }}</x-button>
+                <x-button link="{{ route('contract.index') }}" class="btn-light text-black">{{ __('coreuiforms.return') }}</x-button>
               </form>
             </x-card>
           </div>

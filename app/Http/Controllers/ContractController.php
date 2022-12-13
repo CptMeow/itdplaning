@@ -111,7 +111,8 @@ class ContractController extends Controller
         $end_date   = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_end_date')), 'Y-m-d');
 
         $contract->contract_name        = $request->input('contract_name');
-        $contract->contract_description = $request->input('contract_description');
+        $contract->contract_number      = $request->input('contract_number');
+        $contract->contract_description = trim($request->input('contract_description'));
         $contract->contract_type        = $request->input('contract_type');
         $contract->contract_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $contract->contract_end_date    = $end_date ?? date('Y-m-d 00:00:00');
@@ -119,11 +120,11 @@ class ContractController extends Controller
         // $contract->budget_gov = $request->input('budget_gov');
         // $contract->budget_it  = $request->input('budget_it');
 
-        $contract->budget_gov_operating  = $request->input('budget_gov_operating');
-        $contract->budget_gov_investment = $request->input('budget_gov_investment');
-        $contract->budget_gov_utility    = $request->input('budget_gov_utility');
-        $contract->budget_it_operating   = $request->input('budget_it_operating');
-        $contract->budget_it_investment  = $request->input('budget_it_investment');
+        // $contract->budget_gov_operating  = $request->input('budget_gov_operating');
+        // $contract->budget_gov_investment = $request->input('budget_gov_investment');
+        // $contract->budget_gov_utility    = $request->input('budget_gov_utility');
+        // $contract->budget_it_operating   = $request->input('budget_it_operating');
+        // $contract->budget_it_investment  = $request->input('budget_it_investment');
 
         if ($contract->save()) {
             return redirect()->route('contract.index');
