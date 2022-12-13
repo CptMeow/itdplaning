@@ -94,6 +94,10 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Task', 'project_id');
     }
+    public function main_task()
+    {
+        return $this->task()->whereNull('task_parent');
+    }
 
     public function contract()
     {

@@ -12,21 +12,77 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <th width="50">No</th>
                     <th>Task Name</th>
-                    <th></th>
+                    <th width="200"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($project->task as $task)
+                  @foreach ($project->main_task as $task)
                     <tr>
                       <td></td>
                       <td>
-                        {{ $task['task_name'] }}<br>
+                        {{ $task->task_name }}<br>
                         <span class="badge bg-primary">{{ \Helper::date($task->task_start_date) }}</span>
                         <span class="badge bg-primary">{{ \Helper::date($task->task_end_date) }}</span>
                         @if ($task->contract->count() > 0)
                           <span class="badge bg-warning">{{ $task->contract->count() }} สัญญา</span>
+                        @endif
+                        @if ($task->subtask->count() > 0)
+                          <h6>Sub task</h6>
+                          <ul>
+                            @foreach ($task->subtask as $subtask)
+                              <li>
+                                {{ $subtask->task_name }}
+                                <span class="badge bg-primary">{{ \Helper::date($subtask->task_start_date) }}</span>
+                                <span class="badge bg-primary">{{ \Helper::date($subtask->task_end_date) }}</span>
+                                @if ($subtask->contract->count() > 0)
+                                  <span class="badge bg-warning">{{ $subtask->contract->count() }} สัญญา</span>
+                                @endif
+                                <a href="{{ route('project.task.show', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" class="btn-sm btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                                <a href="{{ route('project.task.edit', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" class="btn-sm btn btn-warning text-white"> <i class="cil-cog"></i> </a>
+                                <form action="{{ route('project.task.destroy', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" method="POST" style="display:inline">
+                                  @method('DELETE')
+                                  @csrf
+                                  <button class="btn-sm btn btn-danger text-white"><i class="cil-trash"></i></button>
+                                </form>
+                              </li>
+                            @endforeach
+                          </ul>
+
+                          {{-- <table class="table">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Sub Task Name</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach ($task->subtask as $subtask)
+                                <tr>
+                                  <td></td>
+                                  <td>
+                                    {{ $subtask->task_name }}<br>
+                                    <span class="badge bg-primary">{{ \Helper::date($subtask->task_start_date) }}</span>
+                                    <span class="badge bg-primary">{{ \Helper::date($subtask->task_end_date) }}</span>
+                                    @if ($subtask->contract->count() > 0)
+                                      <span class="badge bg-warning">{{ $subtask->contract->count() }} สัญญา</span>
+                                    @endif
+                                  </td>
+                                  <td class="text-end">
+                                    <a href="{{ route('project.task.show', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                                    <a href="{{ route('project.task.edit', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" class="btn btn-warning text-white"> <i class="cil-cog"></i> </a>
+                                    <form action="{{ route('project.task.destroy', ['project' => $project->hashid, 'task' => $subtask->hashid]) }}" method="POST" style="display:inline">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button class="btn btn-danger text-white"><i class="cil-trash"></i></button>
+                                    </form>
+                                  </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table> --}}
                         @endif
                       </td>
                       <td class="text-end">
@@ -203,25 +259,25 @@
         if (budget) {
           html += '<table class="table table-sm " style="font-size:9px">';
           html += '<tr class="text-center align-middle">\
-                        <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
-                        <td colspan="2">งบกลาง IT</td>\
-                        <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
-                      </tr>';
+                                                                                                                        <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
+                                                                                                                        <td colspan="2">งบกลาง IT</td>\
+                                                                                                                        <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
+                                                                                                                      </tr>';
           html += '<tr>\
-                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                        <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
-                        <td>ค่าสาธารณูปโภค</td>\
-                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                        <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
-                      </tr>';
+                                                                                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                        <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                        <td>ค่าสาธารณูปโภค</td>\
+                                                                                                                        <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                        <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                      </tr>';
           html += '<tr class="text-end">\
-                        <td>' + budget_gov_operating + '</td>\
-                        <td>' + budget_gov_investment + '</td>\
-                        <td>' + budget_gov_utility + '</td>\
-                        <td>' + budget_it_operating + '</td>\
-                        <td>' + budget_it_investment + '</td>\
-                        <td class="text-success">' + budget + '</td>\
-                      </tr>';
+                                                                                                                        <td>' + budget_gov_operating + '</td>\
+                                                                                                                        <td>' + budget_gov_investment + '</td>\
+                                                                                                                        <td>' + budget_gov_utility + '</td>\
+                                                                                                                        <td>' + budget_it_operating + '</td>\
+                                                                                                                        <td>' + budget_it_investment + '</td>\
+                                                                                                                        <td class="text-success">' + budget + '</td>\
+                                                                                                                      </tr>';
           html += '</table>';
         }
 
