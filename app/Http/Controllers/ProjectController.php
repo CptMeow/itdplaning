@@ -102,6 +102,7 @@ class ProjectController extends Controller
         (Int) $__budget_it  = (Int) $project['budget_it_operating'] + (Int) $project['budget_it_investment'];
         (Int) $__budget     = $__budget_gov + $__budget_it;
         (Int) $__balance    = $__budget + (Int) $project['project_cost'];
+        $__project_cost     = [];
 
         $gantt[] = [
             'id'                    => $project['project_id'],
