@@ -25,7 +25,7 @@
                         <span class="badge bg-info">{{ \Helper::date($project->project_start_date) }}</span> -
                         <span class="badge bg-info">{{ \Helper::date($project->project_end_date) }}</span>
                         @if ($project->task->count() > 0)
-                          <span class="badge bg-warning">{{ $project->task->count() }} กิจกรรม</span>
+                          <span class="badge bg-warning">{{ $project->main_task->count() }} กิจกรรม</span>
                         @endif
                         @if ($project->contract->count() > 0)
                           <span class="badge bg-danger">{{ $project->contract->count() }} สัญญา</span>
