@@ -38,7 +38,7 @@ class ContractController extends Controller
                     return $html;
                 })
                 ->addColumn('contract_fiscal_year', function ($row) {
-                    return '';
+                    return $row->contract_fiscal_year;
                 })
                 ->addColumn('action', function ($row) {
                     $html = '<div class="btn-group" role="group" aria-label="Basic mixed styles example">';

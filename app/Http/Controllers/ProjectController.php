@@ -45,7 +45,7 @@ class ProjectController extends Controller
                     return $html;
                 })
                 ->addColumn('project_fiscal_year', function ($row) {
-                    return '';
+                    return $row->project_fiscal_year;
                 })
                 ->addColumn('action', function ($row) {
                     $html = '<div class="btn-group" role="group" aria-label="Basic mixed styles example">';
