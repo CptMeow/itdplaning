@@ -35,6 +35,14 @@ class ProjectController extends Controller
                     $html .= '<br><span class="badge bg-info">' . \Helper::date($row->project_start_date) . '</span> -';
                     $html .= '<span class="badge bg-info">' . \Helper::date($row->project_end_date) . '</span>';
 
+                    if ($row->task->count() > 0) {
+                        $html .= '<span class="badge bg-warning">{{ $row->main_task->count() }} กิจกรรม</span>';
+                    }
+
+                    if ($row->contract->count() > 0) {
+                        $html .= '<span class="badge bg-danger">{{ $row->contract->count() }} สัญญา</span>';
+                    }
+
                     return $html;
                 })
                 ->addColumn('project_fiscal_year', function ($row) {
