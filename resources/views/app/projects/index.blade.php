@@ -108,8 +108,8 @@
               searchable: false
             },
             {
-              data: 'project_name',
-              orderable: true,
+              data: 'project_name_output',
+              name: 'project_name'
             },
             {
               data: 'project_fiscal_year'

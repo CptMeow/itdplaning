@@ -26,7 +26,7 @@ class ContractController extends Controller
 
             return Datatables::eloquent($records)
                 ->addIndexColumn()
-                ->addColumn('contract_name', function ($row) {
+                ->addColumn('contract_name_output', function ($row) {
                     $html = $row->contract_name;
                     $html .= '<br><span class="badge bg-info">' . \Helper::date($row->contract_start_date) . '</span> -';
                     $html .= ' <span class="badge bg-info">' . \Helper::date($row->contract_end_date) . '</span>';
@@ -51,7 +51,7 @@ class ContractController extends Controller
 
                     return $html;
                 })
-                ->rawColumns(['contract_name', 'action'])
+                ->rawColumns(['contract_name_output', 'action'])
                 ->toJson();
         }
 

@@ -98,8 +98,8 @@
               searchable: false
             },
             {
-              data: 'contract_name',
-              orderable: true,
+              data: 'contract_name_output',
+              name: 'contract_name'
             },
             {
               data: 'contract_fiscal_year'
