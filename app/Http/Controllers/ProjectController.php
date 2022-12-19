@@ -7,7 +7,6 @@ use App\Models\ContractHasTask;
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -33,14 +32,14 @@ class ProjectController extends Controller
                 ->addColumn('project_name', function ($row) {
                     $html = $row->project_name;
                     $html .= '<br><span class="badge bg-info">' . \Helper::date($row->project_start_date) . '</span> -';
-                    $html .= '<span class="badge bg-info">' . \Helper::date($row->project_end_date) . '</span>';
+                    $html .= ' <span class="badge bg-info">' . \Helper::date($row->project_end_date) . '</span>';
 
                     if ($row->task->count() > 0) {
-                        $html .= '<span class="badge bg-warning">' . $row->main_task->count() . 'กิจกรรม</span>';
+                        $html .= ' <span class="badge bg-warning">' . $row->main_task->count() . 'กิจกรรม</span>';
                     }
 
                     if ($row->contract->count() > 0) {
-                        $html .= '<span class="badge bg-danger">' . $row->contract->count() . 'สัญญา</span>';
+                        $html .= ' <span class="badge bg-danger">' . $row->contract->count() . 'สัญญา</span>';
                     }
 
                     return $html;
@@ -51,10 +50,10 @@ class ProjectController extends Controller
                 ->addColumn('action', function ($row) {
                     $html = '<div class="btn-group" role="group" aria-label="Basic mixed styles example">';
                     $html .= '<a href="' . route('project.show', $row->hashid) . '" class="btn btn-success text-white"><i class="cil-folder-open "></i></a>';
-                    if (Auth::user()->hasRole('admin')) {
-                        $html .= '<a href="' . route('project.edit', $row->hashid) . '" class="btn btn-warning btn-edit text-white"><i class="cil-pencil "></i></a>';
-                        $html .= '<button data-rowid="' . $row->hashid . '" class="btn btn-danger btn-delete text-white"><i class="cil-trash "></i></button>';
-                    }
+                    //if (Auth::user()->hasRole('admin')) {
+                    $html .= '<a href="' . route('project.edit', $row->hashid) . '" class="btn btn-warning btn-edit text-white"><i class="cil-pencil "></i></a>';
+                    $html .= '<button data-rowid="' . $row->hashid . '" class="btn btn-danger btn-delete text-white"><i class="cil-trash "></i></button>';
+                    //}
                     $html .= '</div>';
 
                     return $html;
@@ -63,9 +62,7 @@ class ProjectController extends Controller
                 ->toJson();
         }
 
-        $projects = Project::get();
-
-        return view('app.projects.index', compact('projects'));
+        return view('app.projects.index');
     }
 
     public function gantt(Request $request)
