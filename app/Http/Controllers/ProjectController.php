@@ -7,7 +7,9 @@ use App\Models\ContractHasTask;
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
@@ -23,6 +25,36 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $records = Project::orderBy('project_start_date', 'desc');
+
+            return Datatables::eloquent($records)
+                ->addIndexColumn()
+                ->addColumn('project_name', function ($row) {
+                    $html = $row->project_name;
+                    $html .= '<br><span class="badge bg-info">' . \Helper::date($row->project_start_date) . '</span> -';
+                    $html .= '<span class="badge bg-info">' . \Helper::date($row->project_end_date) . '</span>';
+
+                    return $html;
+                })
+                ->addColumn('project_fiscal_year', function ($row) {
+                    return '';
+                })
+                ->addColumn('action', function ($row) {
+                    $html = '<div class="btn-group" role="group" aria-label="Basic mixed styles example">';
+                    $html .= '<a href="' . route('project.show', $row->hashid) . '" class="btn btn-success text-white"><i class="cil-folder-open "></i></a>';
+                    if (Auth::user()->hasRole('admin')) {
+                        $html .= '<a href="' . route('project.edit', $row->hashid) . '" class="btn btn-warning btn-edit text-white"><i class="cil-pencil "></i></a>';
+                        $html .= '<button data-rowid="' . $row->hashid . '" class="btn btn-danger btn-delete text-white"><i class="cil-trash "></i></button>';
+                    }
+                    $html .= '</div>';
+
+                    return $html;
+                })
+                ->rawColumns(['project_name', 'action'])
+                ->toJson();
+        }
+
         $projects = Project::get();
 
         return view('app.projects.index', compact('projects'));
