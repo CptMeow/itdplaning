@@ -114,6 +114,8 @@
         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
         var root = am5.Root.new("chart-project-div");
 
+        root._logo.dispose();
+
 
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -173,7 +175,7 @@
           sequencedInterpolation: true,
           categoryXField: "fiscal_year",
           tooltip: am5.Tooltip.new(root, {
-            labelText: "{totalY}"
+            labelText: "{valueY}"
           })
         }));
 
@@ -210,6 +212,7 @@
         // Create root element
         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
         var root = am5.Root.new("chart-contract-div");
+        root._logo.dispose();
 
 
         // Set themes
@@ -270,7 +273,7 @@
           sequencedInterpolation: true,
           categoryXField: "fiscal_year",
           tooltip: am5.Tooltip.new(root, {
-            labelText: "{totalY}"
+            labelText: "{valueY}"
           })
         }));
 
