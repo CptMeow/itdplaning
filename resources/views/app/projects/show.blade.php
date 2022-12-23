@@ -9,6 +9,47 @@
                 <a href="{{ route('project.task.create', $project->hashid) }}" class="btn btn-success text-white">Add Task</a>
                 <a href="{{ route('project.index') }}" class="btn btn-secondary">Back</a>
               </x-slot:toolbar>
+              <div class="row mb-3">
+                <div class="col-sm-6 col-md-3 col-lg-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="text-medium-emphasis text-end mb-4">
+                        <i class="cil-money icon icon-xxl"></i>
+                      </div>
+                      <div class="fs-4 fw-semibold">{{ number_format($budget['total']) }}</div><small class="text-medium-emphasis text-uppercase fw-semibold">งบประมาณ</small>
+                      <div class="progress progress-thin mt-3 mb-0">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="text-medium-emphasis text-end mb-4">
+                        <i class="cil-money icon icon-xxl"></i>
+                      </div>
+                      <div class="fs-4 fw-semibold">{{ number_format($budget['cost']) }}</div><small class="text-medium-emphasis text-uppercase fw-semibold">ค่าใช้จ่าย</small>
+                      <div class="progress progress-thin mt-3 mb-0">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="text-medium-emphasis text-end mb-4">
+                        <i class="cil-money icon icon-xxl"></i>
+                      </div>
+                      <div class="fs-4 fw-semibold">{{ number_format($budget['balance']) }}</div><small class="text-medium-emphasis text-uppercase fw-semibold">คงเหลือ</small>
+                      <div class="progress progress-thin mt-3 mb-0">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <table class="table">
                 <thead>
                   <tr>
@@ -265,25 +306,25 @@
         if (budget) {
           html += '<table class="table table-sm " style="font-size:9px">';
           html += '<tr class="text-center align-middle">\
-                                                                                                                                                                    <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
-                                                                                                                                                                    <td colspan="2">งบกลาง IT</td>\
-                                                                                                                                                                    <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
-                                                                                                                                                                  </tr>';
+                                                                                                                                                                                                                <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
+                                                                                                                                                                                                                <td colspan="2">งบกลาง IT</td>\
+                                                                                                                                                                                                                <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
+                                                                                                                                                                                                              </tr>';
           html += '<tr>\
-                                                                                                                                                                    <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                                                                                                                                    <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                                                                                                                                    <td>ค่าสาธารณูปโภค</td>\
-                                                                                                                                                                    <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                                                                                                                                    <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                                                                                                                                  </tr>';
+                                                                                                                                                                                                                <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                                                                                                                <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                                                                                                                <td>ค่าสาธารณูปโภค</td>\
+                                                                                                                                                                                                                <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                                                                                                                <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                                                                                                              </tr>';
           html += '<tr class="text-end">\
-                                                                                                                                                                    <td>' + budget_gov_operating + '</td>\
-                                                                                                                                                                    <td>' + budget_gov_investment + '</td>\
-                                                                                                                                                                    <td>' + budget_gov_utility + '</td>\
-                                                                                                                                                                    <td>' + budget_it_operating + '</td>\
-                                                                                                                                                                    <td>' + budget_it_investment + '</td>\
-                                                                                                                                                                    <td class="text-success">' + budget + '</td>\
-                                                                                                                                                                  </tr>';
+                                                                                                                                                                                                                <td>' + budget_gov_operating + '</td>\
+                                                                                                                                                                                                                <td>' + budget_gov_investment + '</td>\
+                                                                                                                                                                                                                <td>' + budget_gov_utility + '</td>\
+                                                                                                                                                                                                                <td>' + budget_it_operating + '</td>\
+                                                                                                                                                                                                                <td>' + budget_it_investment + '</td>\
+                                                                                                                                                                                                                <td class="text-success">' + budget + '</td>\
+                                                                                                                                                                                                              </tr>';
           html += '</table>';
         }
 

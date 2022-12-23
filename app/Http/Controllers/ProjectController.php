@@ -139,6 +139,7 @@ class ProjectController extends Controller
         (Int) $__budget_gov = (Int) $project['budget_gov_operating'] + (Int) $project['budget_gov_utility'] + (Int) $project['budget_gov_investment'];
         (Int) $__budget_it  = (Int) $project['budget_it_operating'] + (Int) $project['budget_it_investment'];
         (Int) $__budget     = $__budget_gov + $__budget_it;
+        (Int) $__cost       = (Int) $project['project_cost'];
         (Int) $__balance    = $__budget + (Int) $project['project_cost'];
         $__project_cost     = [];
 
@@ -162,6 +163,10 @@ class ProjectController extends Controller
             'type'                  => 'project',
             'duration'              => 360,
         ];
+
+        $budget['total']   = $__budget;
+        $budget['cost']    = $__cost;
+        $budget['balance'] = $__budget;
 
         foreach ($project->task as $task) {
             (Int) $__budget_gov = (Int) $task['task_budget_gov_operating'] + (Int) $task['task_budget_gov_utility'] + (Int) $task['task_budget_gov_investment'];
@@ -205,7 +210,7 @@ class ProjectController extends Controller
 
         $gantt = json_encode($gantt);
 
-        return view('app.projects.show', compact('project', 'gantt'));
+        return view('app.projects.show', compact('project', 'gantt', 'budget'));
     }
 
     public function create(Request $request)
