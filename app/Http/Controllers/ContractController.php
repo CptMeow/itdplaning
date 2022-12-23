@@ -63,6 +63,7 @@ class ContractController extends Controller
         $id = Hashids::decode($contract)[0];
 
         $contract = Contract::find($id);
+        $gantt    = '';
 
         return view('app.contracts.show', compact('contract', 'gantt'));
     }
