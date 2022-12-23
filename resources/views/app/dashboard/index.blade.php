@@ -71,12 +71,12 @@
         </div><!-- End Widget Card number -->
 
         <!-- Widget Chart -->
-        <div class="row mb-3 d-none">
+        <div class="row mb-3">
           <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="card">
               <div class="card-body">
-                <div class="card-title fs-5 fw-semibold">TEST</div>
-                <div id="chartdiv" class="chartdiv"></div>
+                <div class="card-title fs-5 fw-semibold">โครงการ/งานประจำ แยกตามปีงบประมาณ</div>
+                <div id="chart-project-div" class="chartdiv"></div>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@
           <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="card">
               <div class="card-body">
-                <div class="card-title fs-5 fw-semibold">TEST</div>
-                <div id="chartdiv2" class="chartdiv"></div>
+                <div class="card-title fs-5 fw-semibold">สัญญา แยกตามปีงบประมาณ</div>
+                <div id="chart-contract-div" class="chartdiv"></div>
               </div>
             </div>
           </div>
@@ -109,9 +109,11 @@
     <!-- Chart code -->
     <script>
       am5.ready(function() {
+
         // Create root element
         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv");
+        var root = am5.Root.new("chart-project-div");
+
 
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -119,61 +121,96 @@
           am5themes_Animated.new(root)
         ]);
 
+
         // Create chart
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
-          layout: root.verticalLayout
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+          panX: true,
+          panY: true,
+          wheelX: "panX",
+          wheelY: "zoomX",
+          pinchZoomX: true
         }));
+
+        // Add cursor
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+        cursor.lineY.set("visible", false);
+
+
+        // Create axes
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+        var xRenderer = am5xy.AxisRendererX.new(root, {
+          minGridDistance: 30
+        });
+        xRenderer.labels.template.setAll({
+          rotation: -90,
+          centerY: am5.p50,
+          centerX: am5.p100,
+          paddingRight: 15
+        });
+
+        var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+          maxDeviation: 0.3,
+          categoryField: "fiscal_year",
+          renderer: xRenderer,
+          tooltip: am5.Tooltip.new(root, {})
+        }));
+
+        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+          maxDeviation: 0.3,
+          renderer: am5xy.AxisRendererY.new(root, {})
+        }));
+
 
         // Create series
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
-          valueField: "value",
-          categoryField: "category"
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+        var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+          name: "Series 1",
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "total",
+          sequencedInterpolation: true,
+          categoryXField: "fiscal_year",
+          tooltip: am5.Tooltip.new(root, {
+            labelText: "{totalY}"
+          })
         }));
 
-        // Set data
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-        series.data.setAll([{
-            value: 10,
-            category: "One"
-          },
-          {
-            value: 9,
-            category: "Two"
-          },
-          {
-            value: 6,
-            category: "Three"
-          },
-          {
-            value: 5,
-            category: "Four"
-          },
-          {
-            value: 4,
-            category: "Five"
-          },
-          {
-            value: 3,
-            category: "Six"
-          },
-          {
-            value: 1,
-            category: "Seven"
-          },
-        ]);
+        series.columns.template.setAll({
+          cornerRadiusTL: 5,
+          cornerRadiusTR: 5
+        });
+        series.columns.template.adapters.add("fill", function(fill, target) {
+          return chart.get("colors").getIndex(series.columns.indexOf(target));
+        });
 
-        // Play initial series animation
-        // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-        series.appear(1000, 100);
+        series.columns.template.adapters.add("stroke", function(stroke, target) {
+          return chart.get("colors").getIndex(series.columns.indexOf(target));
+        });
+
+
+        // Set data
+        var data = {!! $project_groupby_fiscal_years !!}
+
+        xAxis.data.setAll(data);
+        series.data.setAll(data);
+
+
+        // Make stuff animate on load
+        // https://www.amcharts.com/docs/v5/concepts/animations/
+        series.appear(1000);
+        chart.appear(1000, 100);
 
       }); // end am5.ready()
-
+    </script>
+    <script>
       am5.ready(function() {
+
         // Create root element
         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv2");
+        var root = am5.Root.new("chart-contract-div");
+
 
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -181,54 +218,86 @@
           am5themes_Animated.new(root)
         ]);
 
+
         // Create chart
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
-          layout: root.verticalLayout
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+          panX: true,
+          panY: true,
+          wheelX: "panX",
+          wheelY: "zoomX",
+          pinchZoomX: true
         }));
+
+        // Add cursor
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+        cursor.lineY.set("visible", false);
+
+
+        // Create axes
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+        var xRenderer = am5xy.AxisRendererX.new(root, {
+          minGridDistance: 30
+        });
+        xRenderer.labels.template.setAll({
+          rotation: -90,
+          centerY: am5.p50,
+          centerX: am5.p100,
+          paddingRight: 15
+        });
+
+        var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+          maxDeviation: 0.3,
+          categoryField: "fiscal_year",
+          renderer: xRenderer,
+          tooltip: am5.Tooltip.new(root, {})
+        }));
+
+        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+          maxDeviation: 0.3,
+          renderer: am5xy.AxisRendererY.new(root, {})
+        }));
+
 
         // Create series
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
-          valueField: "value",
-          categoryField: "category"
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+        var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+          name: "Series 1",
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "total",
+          sequencedInterpolation: true,
+          categoryXField: "fiscal_year",
+          tooltip: am5.Tooltip.new(root, {
+            labelText: "{totalY}"
+          })
         }));
 
-        // Set data
-        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-        series.data.setAll([{
-            value: 10,
-            category: "One"
-          },
-          {
-            value: 9,
-            category: "Two"
-          },
-          {
-            value: 6,
-            category: "Three"
-          },
-          {
-            value: 5,
-            category: "Four"
-          },
-          {
-            value: 4,
-            category: "Five"
-          },
-          {
-            value: 3,
-            category: "Six"
-          },
-          {
-            value: 1,
-            category: "Seven"
-          },
-        ]);
+        series.columns.template.setAll({
+          cornerRadiusTL: 5,
+          cornerRadiusTR: 5
+        });
+        series.columns.template.adapters.add("fill", function(fill, target) {
+          return chart.get("colors").getIndex(series.columns.indexOf(target));
+        });
 
-        // Play initial series animation
-        // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-        series.appear(1000, 100);
+        series.columns.template.adapters.add("stroke", function(stroke, target) {
+          return chart.get("colors").getIndex(series.columns.indexOf(target));
+        });
+
+
+        // Set data
+        var data = {!! $contract_groupby_fiscal_years !!}
+
+        xAxis.data.setAll(data);
+        series.data.setAll(data);
+
+
+        // Make stuff animate on load
+        // https://www.amcharts.com/docs/v5/concepts/animations/
+        series.appear(1000);
+        chart.appear(1000, 100);
 
       }); // end am5.ready()
     </script>
