@@ -32,7 +32,25 @@
                     </label>
                   </div>
                   <div class="invalid-feedback">
-                    {{ __('ประเภทงาน/โครงการ') }}
+                    {{ __('สถานะงาน/โครงการ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="project_status" class="form-label">{{ __('สถานะงาน/โครงการ') }}</label> <span class="text-danger">*</span>
+                  <div class="form-check form-check-inline ms-5">
+                    <input class="form-check-input" type="radio" name="project_status" id="project_status1" value="1" checked>
+                    <label class="form-check-label" for="project_status1">
+                      อยู่ในระหว่างดำเนินการ
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="project_status" id="project_status2" value="2">
+                    <label class="form-check-label" for="project_status2">
+                      ดำเนินการแล้วเสร็จ
+                    </label>
+                  </div>
+                  <div class="invalid-feedback">
+                    {{ __('สถานะงาน/โครงการ') }}
                   </div>
                 </div>
                 <div class="col-md-12">

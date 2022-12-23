@@ -164,9 +164,7 @@ class ProjectController extends Controller
             'duration'              => 360,
         ];
 
-        $budget['total']   = $__budget;
-        $budget['cost']    = $__cost;
-        $budget['balance'] = $__budget;
+        $budget['total'] = $__budget;
 
         foreach ($project->task as $task) {
             (Int) $__budget_gov = (Int) $task['task_budget_gov_operating'] + (Int) $task['task_budget_gov_utility'] + (Int) $task['task_budget_gov_investment'];
@@ -207,6 +205,9 @@ class ProjectController extends Controller
         }
         $gantt[0]['cost']    = array_sum($__project_cost);
         $gantt[0]['balance'] = $gantt[0]['balance'] - $gantt[0]['cost'];
+
+        $budget['cost']    = $gantt[0]['cost'];
+        $budget['balance'] = $gantt[0]['balance'];
 
         $gantt = json_encode($gantt);
 
@@ -295,6 +296,7 @@ class ProjectController extends Controller
         $project->project_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $project->project_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 
+        $project->project_status = $request->input('project_status') ?? null;
         // $project->budget_gov = $request->input('budget_gov');
         // $project->budget_it  = $request->input('budget_it');
 
