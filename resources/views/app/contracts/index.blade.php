@@ -98,6 +98,10 @@
               searchable: false
             },
             {
+              data: 'contract_number_output',
+              name: 'contract_number'
+            },
+            {
               data: 'contract_name_output',
               name: 'contract_name'
             },

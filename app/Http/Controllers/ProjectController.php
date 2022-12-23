@@ -327,8 +327,8 @@ class ProjectController extends Controller
         $project    = Project::find($id_project);
         $task       = task::find($id_task);
 
-        echo 'contract' . $task->contract->count();
-        dd($task->contract);
+        // echo 'contract' . $task->contract->count();
+        // dd($task->contract);
 
         return 'Under Construction';
     }
