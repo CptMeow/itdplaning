@@ -1,25 +1,26 @@
 <?php
 namespace App\Libraries;
 
-use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
-class Helper {
+class Helper
+{
 
     public static function AppealChannel(string $channel_id = null, $other = null, $department = null)
     {
-        
-        $department = $department?' ('.self::Department($department).')':'';
-        $other = $other?' ('.$other.')':'';
+
+        $department = $department ? ' (' . self::Department($department) . ')' : '';
+        $other      = $other ? ' (' . $other . ')' : '';
 
         $channel = [
-            "department" => "ติดต่อผ่านทางสำนักงาน".$department,
-            "email" => "อีเมล์",
-            "telephone" => "โทรศัพท์",
-            "other" => "ช่องทางอื่นๆ".$other,
+            "department" => "ติดต่อผ่านทางสำนักงาน" . $department,
+            "email"      => "อีเมล์",
+            "telephone"  => "โทรศัพท์",
+            "other"      => "ช่องทางอื่นๆ" . $other,
         ];
 
-        return $channel_id ? $channel[$channel_id]:$channel;
+        return $channel_id ? $channel[$channel_id] : $channel;
     }
 
     public static function AppealStatus(Int $status_id = null)
@@ -35,30 +36,30 @@ class Helper {
             "7" => "Re-Open",
         ];
 
-        return $status_id ? $status[$status_id]:$status;
+        return $status_id ? $status[$status_id] : $status;
     }
 
     public static function AppealType(string $type_id = null, $reason = null)
     {
         $type = [
-            "withdraw_consent" => "ขอถอนความยินยอม (Right to withdraw consent)",
-            "appeal_right_to_access" => "ขอเข้าถึงข้อมูล (Right to access)",
-            "appeal_right_to_data_portability" => "ขอถ่ายโอนข้อมูล (Right to data portability)",
-            "appeal_right_to_object" => "ขอคัดค้านการเก็บรวบรวม ใช้ เปิดเผย ข้อมูลส่วนบุคคล (Right to object)",
-            "appeal_right_to_erasure" => "ขอให้ลบหรือทำลายข้อมูล (Right to erasure)",
+            "withdraw_consent"                          => "ขอถอนความยินยอม (Right to withdraw consent)",
+            "appeal_right_to_access"                    => "ขอเข้าถึงข้อมูล (Right to access)",
+            "appeal_right_to_data_portability"          => "ขอถ่ายโอนข้อมูล (Right to data portability)",
+            "appeal_right_to_object"                    => "ขอคัดค้านการเก็บรวบรวม ใช้ เปิดเผย ข้อมูลส่วนบุคคล (Right to object)",
+            "appeal_right_to_erasure"                   => "ขอให้ลบหรือทำลายข้อมูล (Right to erasure)",
             "appeal_right_to_restriction_of_processing" => "ขอให้ระงับการใช้ข้อมูล (Right to restriction of processing)",
-            "appeal_right_to_rectification" => "ขอให้แก้ไขข้อมูล (Right to rectification)",
-            "appeal_right_to_other" => "อื่นๆ",
+            "appeal_right_to_rectification"             => "ขอให้แก้ไขข้อมูล (Right to rectification)",
+            "appeal_right_to_other"                     => "อื่นๆ",
         ];
 
-        $reason = $reason?" (".$reason.")":"";
+        $reason = $reason ? " (" . $reason . ")" : "";
 
-        return $type_id ? $type[$type_id].$reason:$type;
+        return $type_id ? $type[$type_id] . $reason : $type;
     }
 
     public static function Date(String $date)
     {
-        return date('d/m/Y',$date);
+        return date('d/m/Y', $date);
     }
 
     public static function Attachment(Object $attachment)
@@ -68,13 +69,13 @@ class Helper {
             case 'jpg':
             case 'png':
                 // $output = '<img src="'.Storage::url($attachment->file_path).'" alt="..." height="100px" width="100px" class="img-thumbnail rounded d-block">';
-                $output = '<a href="#" class="pop btn btn-app bg-teal"><i class="fas fa-file-image"></i> Image<img src="'.Storage::url($attachment->file_path).'" class="d-none"></a>';
+                $output = '<a href="#" class="pop btn btn-app bg-teal"><i class="fas fa-file-image"></i> Image<img src="' . Storage::url($attachment->file_path) . '" class="d-none"></a>';
                 break;
 
             case 'pdf':
-                $output = '<a href="'.Storage::url($attachment->file_path).'" class="btn btn-app bg-teal"><i class="fas fa-file-pdf"></i> PDF<span class="d-none">'.$attachment->file_upload_name.'</span></a>';
+                $output = '<a href="' . Storage::url($attachment->file_path) . '" class="btn btn-app bg-teal"><i class="fas fa-file-pdf"></i> PDF<span class="d-none">' . $attachment->file_upload_name . '</span></a>';
                 break;
-                            
+
             default:
                 $output = '';
                 break;
@@ -85,16 +86,16 @@ class Helper {
 
     public static function BuildFiscalYear($start_year = null, $end_year = null)
     {
-        $end_year = $end_year??date('Y')+543;
-        $years = [];
-        for($i = $start_year;$i<= $end_year;$i++) {
+        $end_year = $end_year ?? date('Y') + 543;
+        $years    = [];
+        for ($i = $start_year; $i <= $end_year; $i++) {
             $years[] = [
-                'id' => $i,
-                'text' => $i
+                'id'   => $i,
+                'text' => $i,
             ];
         }
         rsort($years);
-        return $years ;
+        return $years;
     }
 
     public static function ChartOfAccounts($chart_of_account_id = null)
@@ -166,13 +167,11 @@ class Helper {
 
         ];
 
-        if($chart_of_account_id && array_key_exists($chart_of_account_id, $chart_of_accounts)) {
+        if ($chart_of_account_id && array_key_exists($chart_of_account_id, $chart_of_accounts)) {
             return $chart_of_accounts[$chart_of_account_id];
-        }
-        elseif(!$chart_of_account_id) {
+        } elseif (!$chart_of_account_id) {
             return $chart_of_accounts;
-        }
-        else {
+        } else {
             return 'Unknown';
         }
     }
@@ -180,46 +179,44 @@ class Helper {
     public static function Department($department_id = null)
     {
         $departments = [
-            "02" => "โรงพยาบาลจุฬาลงกรณ์",
-            "03" => "โรงพยาบาลสมเด็จพระบรมราชเทวี ณ ศรีราชา",
-            "04" => "สถานเสาวภา",
-            "05" => "สำนักงานยุวกาชาด",
-            "06" => "สำนักงานอาสากาชาด",
-            "07" => "ศูนย์บริการโลหิตแห่งชาติ",
-            "08" => "สำนักงานบรรเทาทุกข์และประชานามัยพิทักษ์",
-            "09" => "สำนักงานจัดหารายได้",
-            "10" => "สถาบันการพยาบาลศรีสวรินทิรา สภากาชาดไทย",
-            "11" => "ศูนย์เวชศาสตร์ฟื้นฟู",
-            "12" => "สำนักงานการคลัง",
-            "13" => "ศูนย์ดวงตา",
-            "14" => "ศูนย์วิจัยโรคเอดส์",
-            "15" => "มูลนิธิสงเคราะห์เด็กของสภากาชาดไทย",
-            "16" => "สำนักงานบริหารทรัพยากรบุคคล",
-            "17" => "สำนักงานบริหารกลาง",
+            "02"  => "โรงพยาบาลจุฬาลงกรณ์",
+            "03"  => "โรงพยาบาลสมเด็จพระบรมราชเทวี ณ ศรีราชา",
+            "04"  => "สถานเสาวภา",
+            "05"  => "สำนักงานยุวกาชาด",
+            "06"  => "สำนักงานอาสากาชาด",
+            "07"  => "ศูนย์บริการโลหิตแห่งชาติ",
+            "08"  => "สำนักงานบรรเทาทุกข์และประชานามัยพิทักษ์",
+            "09"  => "สำนักงานจัดหารายได้",
+            "10"  => "สถาบันการพยาบาลศรีสวรินทิรา สภากาชาดไทย",
+            "11"  => "ศูนย์เวชศาสตร์ฟื้นฟู",
+            "12"  => "สำนักงานการคลัง",
+            "13"  => "ศูนย์ดวงตา",
+            "14"  => "ศูนย์วิจัยโรคเอดส์",
+            "15"  => "มูลนิธิสงเคราะห์เด็กของสภากาชาดไทย",
+            "16"  => "สำนักงานบริหารทรัพยากรบุคคล",
+            "17"  => "สำนักงานบริหารกลาง",
             "171" => "สำนักวิเทศสัมพันธ์",
             "172" => "สำนักสารนิเทศและสื่อสารองค์กร",
-            "18" => "สำนักงานโภชนาการสวนจิตรลดา",
-            "19" => "ศูนย์รับบริจาคอวัยวะ",
-            "20" => "สำนักงานจัดการทรัพย์สิน",
-            "21" => "สำนักงานเทคโนโลยีสารสนเทศและดิจิทัล",
-            "22" => "ศูนย์ฝึกอบรมปฐมพยาบาลและสุขภาพอนามัย",
-            "23" => "สำนักงานตรวจสอบ",
-            "24" => "สำนักงานบริหารระบบกายภาพ",
-            "25" => "สำนักงานบริหารกิจการเหล่ากาชาด",
-            "26" => "กลุ่มงานกลยุทธ์องค์กร",
+            "18"  => "สำนักงานโภชนาการสวนจิตรลดา",
+            "19"  => "ศูนย์รับบริจาคอวัยวะ",
+            "20"  => "สำนักงานจัดการทรัพย์สิน",
+            "21"  => "สำนักงานเทคโนโลยีสารสนเทศและดิจิทัล",
+            "22"  => "ศูนย์ฝึกอบรมปฐมพยาบาลและสุขภาพอนามัย",
+            "23"  => "สำนักงานตรวจสอบ",
+            "24"  => "สำนักงานบริหารระบบกายภาพ",
+            "25"  => "สำนักงานบริหารกิจการเหล่ากาชาด",
+            "26"  => "กลุ่มงานกลยุทธ์องค์กร",
             "261" => "สำนักนโยบายยุทธศาสตร์และงบประมาณ",
             "262" => "สำนักบริหารความเสี่ยงและควบคุมภายใน",
             "263" => "สำนักขับเคลื่อนการพัฒนา",
-            "27" => "สำนักกฎหมาย",
+            "27"  => "สำนักกฎหมาย",
         ];
-        
-        if($department_id && array_key_exists($department_id, $departments)) {
+
+        if ($department_id && array_key_exists($department_id, $departments)) {
             return $departments[$department_id];
-        }
-        elseif(!$department_id) {
+        } elseif (!$department_id) {
             return $departments;
-        }
-        else {
+        } else {
             return 'Unknown';
         }
     }
@@ -230,14 +227,12 @@ class Helper {
             "1" => "บุคคลธรรมดา",
             "2" => "นิติบุคคล",
         ];
-        
-        if($juristic_type_id && array_key_exists($juristic_type_id, $juristic_types)) {
+
+        if ($juristic_type_id && array_key_exists($juristic_type_id, $juristic_types)) {
             return $juristic_types[$juristic_type_id];
-        }
-        elseif(!$juristic_type_id) {
+        } elseif (!$juristic_type_id) {
             return $juristic_types;
-        }
-        else {
+        } else {
             return 'Unknown';
         }
     }
@@ -249,8 +244,8 @@ class Helper {
 
     public static function DataSubjectName(Object $data_subject)
     {
-        $_text = $data_subject->data_subject_title.$data_subject->data_subject_firstname." ".$data_subject->data_subject_lastname;
-        return $_text <> " " ? $_text:"-";
+        $_text = $data_subject->data_subject_title . $data_subject->data_subject_firstname . " " . $data_subject->data_subject_lastname;
+        return $_text != " " ? $_text : "-";
     }
 
     public static function DataSubjectTelephone($telephone)
@@ -265,9 +260,9 @@ class Helper {
 
     public static function NameLogo($user)
     {
-        $first = $user->firstname?substr($user->firstname,0,1):'';
-        $last = $user->lastname?substr($user->lastname,0,1):'';
-        return strtoupper($first.$last);
+        $first = $user->firstname ? substr($user->firstname, 0, 1) : '';
+        $last  = $user->lastname ? substr($user->lastname, 0, 1) : '';
+        return strtoupper($first . $last);
     }
 
     public static function Username($user_id)
@@ -279,9 +274,28 @@ class Helper {
     public static function JsonDecode($json, $key1 = null, $key2 = null)
     {
         $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
-        if(array_key_exists($key1, $array)) {
+        if (array_key_exists($key1, $array)) {
             return $array[$key1][$key2];
         }
         return null;
     }
+
+    /**
+     * แสดงผลตัวเลขจำนวนเงิน
+     */
+    public static function millionFormat($number)
+    {
+        if ($number < 1000000) {
+            // Anything less than a million
+            $format = number_format($number);
+        } else if ($number < 1000000000) {
+            // Anything less than a billion
+            $format = number_format($number / 1000000, 2) . 'M';
+        } else {
+            // At least a billion
+            $format = number_format($number / 1000000000, 2) . 'B';
+        }
+        return $format;
+    }
+
 }

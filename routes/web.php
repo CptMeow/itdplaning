@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
-// use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +27,5 @@ Route::group(['middleware' => ['role:user', 'get.menu']], function () {
     //Contract
     Route::resource('contract', ContractController::class);
 
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

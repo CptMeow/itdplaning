@@ -24,6 +24,6 @@ class DashboardController extends Controller
         $contracts = Contract::count();
         $projects  = Project::count();
 
-        return view('app.dashboard.index', compact('contract', 'projects'));
+        return view('app.dashboard.index', compact('contracts', 'projects'));
     }
 }

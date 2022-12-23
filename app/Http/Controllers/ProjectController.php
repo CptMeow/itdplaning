@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libraries\Helper;
 use App\Models\Contract;
 use App\Models\ContractHasTask;
 use App\Models\Project;
@@ -31,8 +32,8 @@ class ProjectController extends Controller
                 ->addIndexColumn()
                 ->addColumn('project_name_output', function ($row) {
                     $html = $row->project_name;
-                    $html .= '<br><span class="badge bg-info">' . \Helper::date($row->project_start_date) . '</span> -';
-                    $html .= ' <span class="badge bg-info">' . \Helper::date($row->project_end_date) . '</span>';
+                    $html .= '<br><span class="badge bg-info">' . Helper::date($row->project_start_date) . '</span> -';
+                    $html .= ' <span class="badge bg-info">' . Helper::date($row->project_end_date) . '</span>';
 
                     if ($row->task->count() > 0) {
                         $html .= ' <span class="badge bg-warning">' . $row->main_task->count() . 'กิจกรรม</span>';
