@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->integer('task_cost_gov_operating')->nullable();
-            $table->integer('task_cost_gov_investment')->nullable();
-            $table->integer('task_cost_gov_utility')->nullable();
-            $table->integer('task_cost_it_operating')->nullable();
-            $table->integer('task_cost_it_investment')->nullable();
+            $table->decimal('task_cost_gov_operating', 11, 2)->nullable();
+            $table->decimal('task_cost_gov_investment', 11, 2)->nullable();
+            $table->decimal('task_cost_gov_utility', 11, 2)->nullable();
+            $table->decimal('task_cost_it_operating', 11, 2)->nullable();
+            $table->decimal('task_cost_it_investment', 11, 2)->nullable();
         });
     }
 

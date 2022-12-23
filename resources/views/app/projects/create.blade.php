@@ -48,6 +48,13 @@
                     {{ __('รายละเอียดงาน/โครงการ') }}
                   </div>
                 </div>
+                <div class="col-md-12">
+                  <label for="project_fiscal_year" class="form-label">{{ __('ปีงบประมาณ') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="project_fiscal_year" name="project_fiscal_year" required>
+                  <div class="invalid-feedback">
+                    {{ __('ชื่องาน/โครงการ ซ้ำ') }}
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <label for="project_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
@@ -66,21 +73,21 @@
                     <strong>เงินงบประมาณ (งบประมาณขอรัฐบาล)</strong>
                     <div class="col-md-12">
                       <label for="budget_gov_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0">
+                      <input type="number" placeholder="0.00" step="0.01" class="form-control" id="budget_gov_operating" name="budget_gov_operating" min="0">
                       <div class="invalid-feedback">
                         {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
                       </div>
                     </div>
                     <div class="col-md-12">
                       <label for="budget_gov_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0">
+                      <input type="number" placeholder="0.00" step="0.01" class="form-control" id="budget_gov_investment" name="budget_gov_investment" min="0">
                       <div class="invalid-feedback">
                         {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
                       </div>
                     </div>
                     <div class="col-md-12">
                       <label for="budget_gov_utility" class="form-label">{{ __('ค่าสาธารณูปโภค') }}</label>
-                      <input type="number" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0">
+                      <input type="number" placeholder="0.00" step="0.01" class="form-control" id="budget_gov_utility" name="budget_gov_utility" min="0">
                       <div class="invalid-feedback">
                         {{ __('ระบุค่าสาธารณูปโภค') }}
                       </div>
@@ -91,14 +98,14 @@
                     <strong>เงินงบกลาง IT</strong>
                     <div class="col-md-12">
                       <label for="budget_it_operating" class="form-label">{{ __('งบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0">
+                      <input type="number" placeholder="0.00" step="0.01" class="form-control" id="budget_it_operating" name="budget_it_operating" min="0">
                       <div class="invalid-feedback">
                         {{ __('ระบุงบดำเนินงาน (ค่าใช้สอยต่างๆ)') }}
                       </div>
                     </div>
                     <div class="col-md-12">
                       <label for="budget_it_investment" class="form-label">{{ __('งบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}</label>
-                      <input type="number" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0">
+                      <input type="number" placeholder="0.00" step="0.01" class="form-control" id="budget_it_investment" name="budget_it_investment" min="0">
                       <div class="invalid-feedback">
                         {{ __('ระบุงบลงทุน IT (ครุภัณฑ์ต่างๆ)') }}
                       </div>

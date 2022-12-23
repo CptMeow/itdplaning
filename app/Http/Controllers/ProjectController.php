@@ -229,6 +229,7 @@ class ProjectController extends Controller
         $project->project_name        = $request->input('project_name');
         $project->project_description = $request->input('project_description');
         $project->project_type        = $request->input('project_type');
+        $project->project_fiscal_year = $request->input('project_fiscal_year');
         $project->project_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $project->project_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 
@@ -284,6 +285,7 @@ class ProjectController extends Controller
         $project->project_name        = $request->input('project_name');
         $project->project_description = trim($request->input('project_description'));
         $project->project_type        = $request->input('project_type');
+        $project->project_fiscal_year = $request->input('project_fiscal_year');
         $project->project_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $project->project_end_date    = $end_date ?? date('Y-m-d 00:00:00');
 

@@ -56,6 +56,13 @@
                     {{ __('รายละเอียดงาน/โครงการ') }}
                   </div>
                 </div>
+                <div class="col-md-12">
+                  <label for="project_fiscal_year" class="form-label">{{ __('ปีงบประมาณ') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="project_fiscal_year" name="project_fiscal_year" value="{{ $project->project_fiscal_year }}" required>
+                  <div class="invalid-feedback">
+                    {{ __('ชื่องาน/โครงการ ซ้ำ') }}
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <label for="contract_start_date" class="form-label">{{ __('วันที่เริ่มต้น') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
