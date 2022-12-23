@@ -57,8 +57,8 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <label for="project_fiscal_year" class="form-label">{{ __('ปีงบประมาณ') }}</label> <span class="text-danger">*</span>
-                  <input type="text" class="form-control" id="project_fiscal_year" name="project_fiscal_year" value="{{ $project->project_fiscal_year }}" required>
+                  <label for="contract_fiscal_year" class="form-label">{{ __('ปีงบประมาณ') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="contract_fiscal_year" name="contract_fiscal_year" value="{{ $contract->project_fiscal_year }}" required>
                   <div class="invalid-feedback">
                     {{ __('ชื่องาน/โครงการ ซ้ำ') }}
                   </div>

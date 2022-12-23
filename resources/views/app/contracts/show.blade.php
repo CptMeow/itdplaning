@@ -4,10 +4,9 @@
       <div class="animated fadeIn">
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <x-card title="{{ $project->project_name }}">
+            <x-card title="{{ $contract->contract_name }}">
               <x-slot:toolbar>
-                <a href="{{ route('project.task.create', $project->hashid) }}" class="btn btn-success text-white">Add Task</a>
-                <a href="{{ route('project.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('contract.index') }}" class="btn btn-secondary">Back</a>
               </x-slot:toolbar>
               <table class="table">
                 <thead>
@@ -18,7 +17,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($project->task as $task)
+                  @foreach ($contract->task as $task)
                     <tr>
                       <td></td>
                       <td>
@@ -27,13 +26,13 @@
                         <span class="badge bg-primary">{{ \Helper::date($task->task_end_date) }}</span>
                       </td>
                       <td class="text-end">
-                        <a href="{{ route('project.task.show', ['project' => $project->hashid, 'task' => $task->hashid]) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
-                        <a href="{{ route('project.task.edit', ['project' => $project->hashid, 'task' => $task->hashid]) }}" class="btn btn-warning text-white"> <i class="cil-cog"></i> </a>
-                        <form action="{{ route('project.task.destroy', ['project' => $project->hashid, 'task' => $task->hashid]) }}" method="POST" style="display:inline">
+                        {{-- <a href="{{ route('contract.task.show', ['contract' => $contract->hashid, 'task' => $task->hashid]) }}" class="btn btn-primary text-white"><i class="cil-folder-open "></i></a>
+                        <a href="{{ route('contract.task.edit', ['contract' => $contract->hashid, 'task' => $task->hashid]) }}" class="btn btn-warning text-white"> <i class="cil-cog"></i> </a>
+                        <form action="{{ route('contract.task.destroy', ['contract' => $contract->hashid, 'task' => $task->hashid]) }}" method="POST" style="display:inline">
                           @method('DELETE')
                           @csrf
                           <button class="btn btn-danger text-white"><i class="cil-trash"></i></button>
-                        </form>
+                        </form> --}}
                       </td>
                     </tr>
                   @endforeach
@@ -202,25 +201,25 @@
         if (budget) {
           html += '<table class="table table-sm " style="font-size:9px">';
           html += '<tr class="text-center align-middle">\
-                                                                                                            <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
-                                                                                                            <td colspan="2">งบกลาง IT</td>\
-                                                                                                            <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
-                                                                                                          </tr>';
+                                                                                                                    <td colspan="3">เงินงบประมาณ<br>(งบประมาณขอรัฐบาล)</td>\
+                                                                                                                    <td colspan="2">งบกลาง IT</td>\
+                                                                                                                    <td rowspan="2">รวมทั้งหมด<br>(เงินงบประมาณ+งบกลาง)</td>\
+                                                                                                                  </tr>';
           html += '<tr>\
-                                                                                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                                                                            <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                                                                            <td>ค่าสาธารณูปโภค</td>\
-                                                                                                            <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
-                                                                                                            <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
-                                                                                                          </tr>';
+                                                                                                                    <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                    <td>งบลงทุน IT<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                    <td>ค่าสาธารณูปโภค</td>\
+                                                                                                                    <td>งบดำเนินงาน<br>(ค่าใช้สอยต่างๆ)</td>\
+                                                                                                                    <td>งบลงทุน<br>(ครุภัณฑ์ต่างๆ)</td>\
+                                                                                                                  </tr>';
           html += '<tr class="text-end">\
-                                                                                                            <td>' + budget_gov_operating + '</td>\
-                                                                                                            <td>' + budget_gov_investment + '</td>\
-                                                                                                            <td>' + budget_gov_utility + '</td>\
-                                                                                                            <td>' + budget_it_operating + '</td>\
-                                                                                                            <td>' + budget_it_investment + '</td>\
-                                                                                                            <td class="text-success">' + budget + '</td>\
-                                                                                                          </tr>';
+                                                                                                                    <td>' + budget_gov_operating + '</td>\
+                                                                                                                    <td>' + budget_gov_investment + '</td>\
+                                                                                                                    <td>' + budget_gov_utility + '</td>\
+                                                                                                                    <td>' + budget_it_operating + '</td>\
+                                                                                                                    <td>' + budget_it_investment + '</td>\
+                                                                                                                    <td class="text-success">' + budget + '</td>\
+                                                                                                                  </tr>';
           html += '</table>';
         }
 
