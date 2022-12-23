@@ -87,13 +87,6 @@ class Contract extends Model
     // Relations ...
     public function task()
     {
-        return $this->hasManyThrough(
-            'App\Models\ContractHasTask',
-            'App\Models\Task',
-            'contract_id',
-            'task_id',
-            'contract_id',
-            'task_id',
-        );
+        return $this->belongsToMany('App\Models\Task', 'contract_has_tasks', 'contract_id', 'task_id');
     }
 }

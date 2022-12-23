@@ -79,5 +79,13 @@ class ContractHasTask extends Model
     }
 
     // Relations ...
+    public function contract()
+    {
+        return $this->hasMany('App\Models\Contract');
+    }
+    public function task()
+    {
+        return $this->hasMany('App\Models\Task');
+    }
 
 }

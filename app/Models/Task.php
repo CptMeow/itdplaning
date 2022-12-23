@@ -88,8 +88,14 @@ class Task extends Model
     {
         return $this->hasMany('App\Models\Task', 'task_parent');
     }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project');
+    }
+
     public function contract()
     {
-        return $this->hasMany('App\Models\ContractHasTask', 'task_id');
+        return $this->belongsToMany('App\Models\Contract', 'contract_has_tasks', 'task_id', 'contract_id');
     }
 }
