@@ -83,6 +83,11 @@ class Task extends Model
         return Hashids::encode($this->getKey());
     }
 
+    public function getProjectHashidAttribute($value)
+    {
+        return Hashids::encode($this->project_id);
+    }
+
     // Relations ...
     public function subtask()
     {

@@ -67,6 +67,8 @@ class ContractController extends Controller
 
         $gantt = '';
 
+        // dd(Hashids::encode($contract->task->task_id));
+
         return view('app.contracts.show', compact('contract', 'gantt'));
     }
 
