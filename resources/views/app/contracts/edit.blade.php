@@ -90,7 +90,7 @@
                 <div class="col-md-6">
                   <label for="contract_sign_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
-                  <div data-coreui-toggle="date-picker" id="contract_sign_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $contract->contract_sign_date) }}"></div>
+                  <div data-coreui-toggle="date-picker" id="contract_sign_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ $contract->contract_sign_date ? date('m/d/Y', $contract->contract_sign_date) : '' }}"></div>
                 </div>
 
                 <div class="col-md-12">
