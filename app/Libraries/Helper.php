@@ -221,6 +221,43 @@ class Helper
         }
     }
 
+    public static function contractAcquisition($acquisition_id = null)
+    {
+        $acquisition = [
+            "1" => "วิธีตกลงราคา",
+            "2" => "วิธีสอบราคา",
+            "3" => "วิธีประกวดราคา",
+            "4" => "วิธีพิเศษ",
+            "5" => "วิธีกรณีพิเศษ",
+            "6" => "วิธีประมูลด้วยระบบอิเล็กทรอนิกส์",
+        ];
+
+        if ($acquisition_id && array_key_exists($acquisition_id, $acquisition)) {
+            return $acquisition[$acquisition_id];
+        } elseif (!$acquisition_id) {
+            return $acquisition;
+        } else {
+            return 'Unknown';
+        }
+    }
+
+    public static function contractType($type_id = null)
+    {
+        $type = [
+            "B" => "การซื้อ",
+            "H" => "การจ้าง",
+            "L" => "การเช่า",
+        ];
+
+        if ($type_id && array_key_exists($type_id, $type)) {
+            return $type[$type_id];
+        } elseif (!$type_id) {
+            return $type;
+        } else {
+            return 'Unknown';
+        }
+    }
+
     public static function JuristicType($juristic_type_id = null)
     {
         $juristic_types = [

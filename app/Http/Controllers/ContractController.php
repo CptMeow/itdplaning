@@ -94,14 +94,20 @@ class ContractController extends Controller
         //convert date
         $start_date = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_start_date')), 'Y-m-d');
         $end_date   = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_end_date')), 'Y-m-d');
+        $sign_date  = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_sign_date')), 'Y-m-d');
 
         $contract->contract_name        = $request->input('contract_name');
         $contract->contract_number      = $request->input('contract_number');
         $contract->contract_description = trim($request->input('contract_description'));
-        $contract->contract_type        = $request->input('contract_type');
         $contract->contract_fiscal_year = $request->input('contract_fiscal_year');
         $contract->contract_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $contract->contract_end_date    = $end_date ?? date('Y-m-d 00:00:00');
+
+        $contract->contract_juristic_id = $request->input('contract_juristic_id') ?? null;
+        $contract->contract_order_no    = $request->input('contract_order_no') ?? null;
+        $contract->contract_type        = $request->input('contract_type') ?? null;
+        $contract->contract_acquisition = $request->input('contract_acquisition') ?? null;
+        $contract->contract_sign_date   = $sign_date ?? null;
 
         // $contract->budget_gov = $request->input('budget_gov');
         // $contract->budget_it  = $request->input('budget_it');
@@ -151,14 +157,20 @@ class ContractController extends Controller
         //convert date
         $start_date = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_start_date')), 'Y-m-d');
         $end_date   = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_end_date')), 'Y-m-d');
+        $sign_date  = date_format(date_create_from_format('d/m/Y', $request->input('date-picker-contract_sign_date')), 'Y-m-d');
 
         $contract->contract_name        = $request->input('contract_name');
         $contract->contract_number      = $request->input('contract_number');
         $contract->contract_description = trim($request->input('contract_description'));
-        $contract->contract_type        = $request->input('contract_type');
         $contract->contract_fiscal_year = $request->input('contract_fiscal_year');
         $contract->contract_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $contract->contract_end_date    = $end_date ?? date('Y-m-d 00:00:00');
+
+        $contract->contract_juristic_id = $request->input('contract_juristic_id') ?? null;
+        $contract->contract_order_no    = $request->input('contract_order_no') ?? null;
+        $contract->contract_type        = $request->input('contract_type') ?? null;
+        $contract->contract_acquisition = $request->input('contract_acquisition') ?? null;
+        $contract->contract_sign_date   = $sign_date ?? null;
 
         // $contract->budget_gov = $request->input('budget_gov');
         // $contract->budget_it  = $request->input('budget_it');

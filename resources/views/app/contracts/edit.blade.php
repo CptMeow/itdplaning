@@ -50,6 +50,20 @@
                   </div>
                 </div>
                 <div class="col-md-12">
+                  <label for="contract_juristic_id" class="form-label">{{ __('เลขทะเบียนคู่ค้า') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="contract_juristic_id" name="contract_juristic_id" value="{{ $contract->contract_juristic_id }}" maxlength="13" required>
+                  <div class="invalid-feedback">
+                    {{ __('คู่ค้าซ้ำ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="contract_order_no" class="form-label">{{ __('เลขที่ใบสั่งซื้อ') }}</label> <span class="text-danger">*</span>
+                  <input type="text" class="form-control" id="contract_order_no" name="contract_order_no" value="{{ $contract->contract_order_no }}" maxlength="50" required>
+                  <div class="invalid-feedback">
+                    {{ __('เลขที่ใบสั่งซื้อ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <label for="contract_description" class="form-label">{{ __('รายละเอียดสัญญา') }}</label>
                   <textarea class="form-control" name="contract_description" id="contract_description" rows="10">{{ $contract->contract_description }}</textarea>
                   <div class="invalid-feedback">
@@ -58,7 +72,7 @@
                 </div>
                 <div class="col-md-12">
                   <label for="contract_fiscal_year" class="form-label">{{ __('ปีงบประมาณ') }}</label> <span class="text-danger">*</span>
-                  <input type="text" class="form-control" id="contract_fiscal_year" name="contract_fiscal_year" value="{{ $contract->project_fiscal_year }}" required>
+                  <input type="text" class="form-control" id="contract_fiscal_year" name="contract_fiscal_year" value="{{ $contract->contract_fiscal_year }}" required>
                   <div class="invalid-feedback">
                     {{ __('ชื่องาน/โครงการ ซ้ำ') }}
                   </div>
@@ -72,6 +86,26 @@
                   <label for="contract_end_date" class="form-label">{{ __('วันที่สิ้นสุด') }}</label> <span class="text-danger">*</span>
                   {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
                   <div data-coreui-toggle="date-picker" id="contract_end_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $contract->contract_end_date) }}"></div>
+                </div>
+                <div class="col-md-6">
+                  <label for="contract_sign_date" class="form-label">{{ __('วันที่ลงนามสัญญา') }}</label>
+                  {{-- <input type="text" class="form-control" id="register_date" name="register_date" required> --}}
+                  <div data-coreui-toggle="date-picker" id="contract_sign_date" data-coreui-format="dd/MM/yyyy" data-coreui-date="{{ date('m/d/Y', $contract->contract_sign_date) }}"></div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="contract_type" class="form-label">{{ __('ประเภทสัญญา') }}</label> <span class="text-danger">*</span>
+                  {{ Form::select('contract_type', \Helper::contractType(), $contract->contract_type, ['class' => 'form-control', 'placeholder' => 'เลือกประเภท...']) }}
+                  <div class="invalid-feedback">
+                    {{ __('สัญญา') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label for="contract_acquisition" class="form-label">{{ __('ประเภทการได้มาของสัญญา') }}</label> <span class="text-danger">*</span>
+                  {{ Form::select('contract_acquisition', \Helper::contractAcquisition(), $contract->contract_acquisition, ['class' => 'form-control', 'placeholder' => 'เลือกประเภทการได้มาของสัญญา...']) }}
+                  <div class="invalid-feedback">
+                    {{ __('สัญญา') }}
+                  </div>
                 </div>
 
                 <x-button class="btn-success" type="submit">{{ __('coreuiforms.save') }}</x-button>
