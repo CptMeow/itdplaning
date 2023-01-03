@@ -57,7 +57,7 @@ class Contract extends Model
      * @var array
      */
     protected $casts = [
-        'contract_id' => 'int', 'contract_name' => 'string', 'contract_number' => 'string', 'contract_year' => 'string', 'contract_description' => 'string', 'contract_type' => 'string', 'contract_status' => 'string', 'contract_start_date' => 'timestamp', 'contract_end_date' => 'timestamp', 'created_at' => 'timestamp', 'updated_at' => 'timestamp', 'deleted_at' => 'timestamp',
+        'contract_id' => 'int', 'contract_name' => 'string', 'contract_number' => 'string', 'contract_year' => 'string', 'contract_description' => 'string', 'contract_type' => 'string', 'contract_status' => 'string', 'contract_start_date' => 'timestamp', 'contract_end_date' => 'timestamp', 'created_at' => 'timestamp', 'updated_at' => 'timestamp', 'deleted_at' => 'timestamp', 'contract_sign_date' => 'timestamp',
     ];
 
     /**
@@ -66,7 +66,7 @@ class Contract extends Model
      * @var array
      */
     protected $dates = [
-        'contract_start_date', 'contract_end_date', 'created_at', 'updated_at', 'deleted_at',
+        'contract_start_date', 'contract_end_date', 'created_at', 'updated_at', 'deleted_at', 'contract_sign_date',
     ];
 
     /**
