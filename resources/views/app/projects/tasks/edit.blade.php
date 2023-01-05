@@ -25,6 +25,24 @@
                   </div>
                 </div>
                 <div class="col-md-12">
+                  <label for="task_status" class="form-label">{{ __('สถานะกิจกรรม') }}</label> <span class="text-danger">*</span>
+                  <div class="form-check form-check-inline ms-5">
+                    <input class="form-check-input" type="radio" name="task_status" id="task_status1" value="1" checked>
+                    <label class="form-check-label" for="task_status1">
+                      อยู่ในระหว่างดำเนินการ
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="task_status" id="task_status2" value="2">
+                    <label class="form-check-label" for="task_status2">
+                      ดำเนินการแล้วเสร็จ
+                    </label>
+                  </div>
+                  <div class="invalid-feedback">
+                    {{ __('สถานะงาน/โครงการ') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <label for="task_description" class="form-label">{{ __('รายละเอียดกิจกรรม') }}</label>
                   <textarea class="form-control" name="task_description" id="task_description" rows="10">
                     {{ $task->task_description }}

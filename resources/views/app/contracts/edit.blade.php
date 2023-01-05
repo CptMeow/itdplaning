@@ -43,6 +43,24 @@
                   </div>
                 </div>
                 <div class="col-md-12">
+                  <label for="contract_status" class="form-label">{{ __('สถานะสัญญา') }}</label> <span class="text-danger">*</span>
+                  <div class="form-check form-check-inline ms-5">
+                    <input class="form-check-input" type="radio" name="contract_status" id="contract_status1" value="1" checked>
+                    <label class="form-check-label" for="contract_status1">
+                      อยู่ในระหว่างดำเนินการ
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="contract_status" id="contract_status2" value="2">
+                    <label class="form-check-label" for="contract_status2">
+                      ดำเนินการแล้วเสร็จ
+                    </label>
+                  </div>
+                  <div class="invalid-feedback">
+                    {{ __('สถานะสัญญา') }}
+                  </div>
+                </div>
+                <div class="col-md-12">
                   <label for="contract_number" class="form-label">{{ __('เลขที่สัญญา') }}</label> <span class="text-danger">*</span>
                   <input type="text" class="form-control" id="contract_number" name="contract_number" value="{{ $contract->contract_number }}" required>
                   <div class="invalid-feedback">

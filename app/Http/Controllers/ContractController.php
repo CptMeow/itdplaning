@@ -161,6 +161,7 @@ class ContractController extends Controller
 
         $contract->contract_name        = $request->input('contract_name');
         $contract->contract_number      = $request->input('contract_number');
+        $contract->contract_status      = $request->input('contract_status');
         $contract->contract_description = trim($request->input('contract_description'));
         $contract->contract_fiscal_year = $request->input('contract_fiscal_year');
         $contract->contract_start_date  = $start_date ?? date('Y-m-d 00:00:00');

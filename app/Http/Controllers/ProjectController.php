@@ -445,6 +445,7 @@ class ProjectController extends Controller
 
         $task->project_id       = $id_project;
         $task->task_name        = $request->input('task_name');
+        $task->task_status      = $request->input('task_status');
         $task->task_description = trim($request->input('task_description'));
         $task->task_start_date  = $start_date ?? date('Y-m-d 00:00:00');
         $task->task_end_date    = $end_date ?? date('Y-m-d 00:00:00');
