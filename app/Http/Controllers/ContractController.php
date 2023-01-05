@@ -31,7 +31,8 @@ class ContractController extends Controller
                     return $row->contract_number;
                 })
                 ->addColumn('contract_name_output', function ($row) {
-                    $html = $row->contract_name;
+                    $flag_status = $row->contract_status ? '<span class="badge bg-info">ดำเนินการแล้วเสร็จ</span>' : '';
+                    $html        = $row->contract_name . ' ' . $flag_status;
                     $html .= '<br><span class="badge bg-info">' . Helper::date($row->contract_start_date) . '</span> -';
                     $html .= ' <span class="badge bg-info">' . Helper::date($row->contract_end_date) . '</span>';
 

@@ -31,7 +31,8 @@ class ProjectController extends Controller
             return Datatables::eloquent($records)
                 ->addIndexColumn()
                 ->addColumn('project_name_output', function ($row) {
-                    $html = $row->project_name;
+                    $flag_status = $row->project_status ? '<span class="badge bg-info">ดำเนินการแล้วเสร็จ</span>' : '';
+                    $html        = $row->project_name . ' ' . $flag_status;
                     $html .= '<br><span class="badge bg-info">' . Helper::date($row->project_start_date) . '</span> -';
                     $html .= ' <span class="badge bg-info">' . Helper::date($row->project_end_date) . '</span>';
 
