@@ -62,7 +62,9 @@ class Project extends Model
      * @var array
      */
     protected $casts = [
-        'project_id' => 'int', 'project_name' => 'string', 'project_description' => 'string', 'project_type' => 'int', 'project_start_date' => 'timestamp', 'project_end_date' => 'timestamp', 'budget_gov_operating' => 'decimal', 'budget_gov_investment' => 'decimal', 'budget_gov_utility' => 'decimal', 'budget_it_operating' => 'decimal', 'budget_it_investment' => 'decimal', 'project_cost' => 'decimal', 'project_owner' => 'int', 'craeted_at' => 'timestamp', 'updated_at' => 'timestamp',
+        'project_id'    => 'int', 'project_name' => 'string', 'project_description' => 'string', 'project_type' => 'int', 'project_start_date' => 'timestamp', 'project_end_date' => 'timestamp',
+        //'budget_gov_operating' => 'decimal', 'budget_gov_investment' => 'decimal', 'budget_gov_utility' => 'decimal', 'budget_it_operating' => 'decimal', 'budget_it_investment' => 'decimal', 'project_cost' => 'decimal',
+        'project_owner' => 'int', 'craeted_at'   => 'timestamp', 'updated_at'       => 'timestamp',
     ];
 
     /**
