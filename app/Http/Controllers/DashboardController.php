@@ -27,8 +27,8 @@ class DashboardController extends Controller
         $budgets   = Project::sum(DB::raw('	COALESCE(budget_gov_operating,0) + COALESCE(budget_gov_investment,0) + COALESCE(budget_gov_utility,0) + COALESCE(budget_it_operating,0) + COALESCE(budget_it_investment,0)'));
 
         $budget_groupby_fiscal_years = Project::selectRaw('project_fiscal_year as fiscal_year, sum(COALESCE(budget_gov_operating,0) + COALESCE(budget_gov_investment,0) + COALESCE(budget_gov_utility,0) + COALESCE(budget_it_operating,0) + COALESCE(budget_it_investment,0)) as total')
-            ->GroupBy('contract_fiscal_year')
-            ->orderBy('contract_fiscal_year', 'desc')
+            ->GroupBy('project_fiscal_year')
+            ->orderBy('project_fiscal_year', 'desc')
             ->get()
             ->toJson();
 
