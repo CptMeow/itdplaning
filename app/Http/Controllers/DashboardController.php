@@ -24,9 +24,9 @@ class DashboardController extends Controller
 
         $contracts = Contract::count();
         $projects  = Project::count();
-        $budgets   = Project::sum(DB::raw('	budget_gov_operating + budget_gov_investment + budget_gov_utility + budget_it_operating + budget_it_investment as budget'));
+        $budgets   = Project::sum(DB::raw('	COALESCE(budget_gov_operating,0) + COALESCE(budget_gov_investment,0) + COALESCE(budget_gov_utility,0) + COALESCE(budget_it_operating,0) + COALESCE(budget_it_investment,0)'));
 
-        $budget_groupby_fiscal_years = Project::selectRaw('contract_fiscal_year as fiscal_year, sum(budget_gov_operating + budget_gov_investment + budget_gov_utility + budget_it_operating + budget_it_investment)) as total')
+        $budget_groupby_fiscal_years = Project::selectRaw('contract_fiscal_year as fiscal_year, sum(COALESCE(budget_gov_operating,0) + COALESCE(budget_gov_investment,0) + COALESCE(budget_gov_utility,0) + COALESCE(budget_it_operating,0) + COALESCE(budget_it_investment,0)) as total')
             ->GroupBy('contract_fiscal_year')
             ->orderBy('contract_fiscal_year', 'desc')
             ->get()
