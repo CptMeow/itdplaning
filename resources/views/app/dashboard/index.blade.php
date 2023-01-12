@@ -82,7 +82,7 @@
 
         <!-- Widget Chart -->
         <div class="row mb-3">
-          <div class="col-sm-4 col-md-6 col-lg-6">
+          <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="card">
               <div class="card-body">
                 <div class="card-title fs-5 fw-semibold">งบประมาณ แยกตามปีงบประมาณ</div>
@@ -92,7 +92,7 @@
           </div>
 
           <div class="row mb-3">
-            <div class="col-sm-4 col-md-6 col-lg-6">
+            <div class="col-sm-4 col-md-4 col-lg-4">
               <div class="card">
                 <div class="card-body">
                   <div class="card-title fs-5 fw-semibold">โครงการ/งานประจำ แยกตามปีงบประมาณ</div>
@@ -101,7 +101,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4 col-md-6 col-lg-6">
+            <div class="col-sm-4 col-md-4 col-lg-4">
               <div class="card">
                 <div class="card-body">
                   <div class="card-title fs-5 fw-semibold">สัญญา แยกตามปีงบประมาณ</div>
@@ -213,7 +213,7 @@
 
 
         // Set data
-        var data = {!! $project_groupby_fiscal_years !!}
+        var data = {!! $budget_groupby_fiscal_years !!}
 
         xAxis.data.setAll(data);
         series.data.setAll(data);
