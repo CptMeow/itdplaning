@@ -91,34 +91,33 @@
             </div>
           </div>
 
-          <div class="row mb-3">
-            <div class="col-sm-4 col-md-4 col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-title fs-5 fw-semibold">โครงการ/งานประจำ แยกตามปีงบประมาณ</div>
-                  <div id="chart-project-div" class="chartdiv"></div>
-                </div>
+          <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title fs-5 fw-semibold">โครงการ/งานประจำ แยกตามปีงบประมาณ</div>
+                <div id="chart-project-div" class="chartdiv"></div>
               </div>
             </div>
-
-            <div class="col-sm-4 col-md-4 col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-title fs-5 fw-semibold">สัญญา แยกตามปีงบประมาณ</div>
-                  <div id="chart-contract-div" class="chartdiv"></div>
-                </div>
-              </div>
-            </div>
-
           </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title fs-5 fw-semibold">สัญญา แยกตามปีงบประมาณ</div>
+                <div id="chart-contract-div" class="chartdiv"></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <style>
-        .chartdiv {
-          width: 100%;
-          height: 250px;
-        }
-      </style>
+    </div>
+    <style>
+      .chartdiv {
+        width: 100%;
+        height: 250px;
+      }
+    </style>
   </x-slot:content>
   <x-slot:javascript>
     <!-- Resources -->

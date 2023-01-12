@@ -30,19 +30,19 @@ class DashboardController extends Controller
             ->GroupBy('project_fiscal_year')
             ->orderBy('project_fiscal_year', 'desc')
             ->get()
-            ->toJson();
+            ->toJson(JSON_NUMERIC_CHECK);
 
         $contract_groupby_fiscal_years = Contract::selectRaw('contract_fiscal_year as fiscal_year, count(*) as total')
             ->GroupBy('contract_fiscal_year')
             ->orderBy('contract_fiscal_year', 'desc')
             ->get()
-            ->toJson();
+            ->toJson(JSON_NUMERIC_CHECK);
 
         $project_groupby_fiscal_years = Project::selectRaw('project_fiscal_year as fiscal_year, count(*) as total')
             ->GroupBy('project_fiscal_year')
             ->orderBy('project_fiscal_year', 'desc')
             ->get()
-            ->toJson();
+            ->toJson(JSON_NUMERIC_CHECK);
 
         return view('app.dashboard.index', compact('budgets', 'budget_groupby_fiscal_years', 'contracts', 'contract_groupby_fiscal_years', 'projects', 'project_groupby_fiscal_years'));
     }
